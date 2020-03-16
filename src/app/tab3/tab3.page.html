@@ -1,0 +1,57 @@
+<ion-header class="padding">
+  <ion-toolbar color="success">
+      <ion-buttons slot="secondary">
+        <ion-button Href="../buscar">
+          <ion-icon slot="icon-only" name="search"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>
+          <img src="/assets/siem_logo.svg"
+          class="avatar animated fadeIn "
+          height="65px">
+      </ion-title>
+
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card color="secondary">
+    <ion-card-header>
+      <ion-card-title>Detalle de los GASTOS Semanales</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Sistema de Información Ejecutiva Municipal</p>
+    </ion-card-content>
+  </ion-card>
+  <div class="ion-padding">
+
+    <ion-card>
+      <ion-card-header>
+        Gasto Diario por Categorías
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #doughnutCanvas></canvas>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        Gasto Semanal
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #barCanvas></canvas>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        Historico de los Gastos - Semestral
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #lineCanvas></canvas>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+</ion-content>

@@ -1,0 +1,34 @@
+<ion-content padding="true">
+    <ion-card class="welcome-card">
+        <ion-card-header class="titulo-general">
+            <ion-card-title>Sistema de Información Ejecutiva Municipal</ion-card-title>
+        </ion-card-header>
+        <ion-card-content class="texto-card">
+            <p class="bienvenida-text">Estás accediendo al SIEM sistema desarrollado para Intendentes y Autoridades Municipales. El sistema permite a acceder a información en tiempo real de los estados contables del municipio.</p>
+        </ion-card-content>
+        <ion-card-content class="texto-card">
+            <img src="/assets/siem_logo.svg">
+            <p class="bienvenida-text">CONSULTORIA IDEANDO - 2020</p>
+        </ion-card-content>
+    </ion-card>
+    <ion-card class="welcome-card">
+        <h4 text-center margin-top>Introducir Credenciales</h4>
+
+        <ion-item>
+            <ion-label stacked>Usuario: </ion-label>
+            <ion-input [(ngModel)]="username"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label stacked>Contraseña: </ion-label>
+            <ion-input type="password" [(ngModel)]="password"></ion-input>
+        </ion-item>
+
+        <div text-center margin-top>
+            <button ion-button color="success" (click)="signIn()">
+        ACCEDER A SIEMun
+      </button>
+            <P>.</P>
+        </div>
+    </ion-card>
+</ion-content>

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="172.31294mm"
+   height="193.00806mm"
+   viewBox="0 0 172.31294 193.00806"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.4 (f8dce91, 2019-08-02)"
+   sodipodi:docname="siem.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="847.16582"
+     inkscape:cy="-74.641704"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="1853"
+     inkscape:window-height="1025"
+     inkscape:window-x="67"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1">
+    <sodipodi:guide
+       position="43.585939,204.97977"
+       orientation="1,0"
+       id="guide826"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="67.209451,199.12114"
+       orientation="0,1"
+       id="guide828"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="128.25261,191.37263"
+       orientation="1,0"
+       id="guide830"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="102.55023,114.64346"
+       orientation="0,1"
+       id="guide832"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="100.47136,194.01846"
+       orientation="0,1"
+       id="guide834"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="48.877606,187.59286"
+       orientation="1,0"
+       id="guide836"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="123.14993,181.92322"
+       orientation="1,0"
+       id="guide838"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="101.4163,119.74614"
+       orientation="0,1"
+       id="guide840"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="80.438617,199.12115"
+       orientation="1,0"
+       id="guide842"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="91.588918,187.21489"
+       orientation="1,0"
+       id="guide844"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="115.5904,162.45745"
+       orientation="0,1"
+       id="guide846"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="103.30618,151.11816"
+       orientation="0,1"
+       id="guide848"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="29.789809,119.74614"
+       orientation="1,0"
+       id="guide1466"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="142.6157,119.74614"
+       orientation="1,0"
+       id="guide1468"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-8.7637618,-45.144335)">
+    <g
+       id="g1502"
+       transform="matrix(1.5261949,0,0,1.5261949,-49.946541,-14.424944)">
+      <g
+         id="g1450">
+        <path
+           style="opacity:1;fill:#10892a;fill-opacity:0.40579708;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 52.349701,87.034221 v 36.474699 h 36.852677 v -5.10268 H 57.641368 V 87.034221 Z"
+           id="path850"
+           inkscape:connector-curvature="0" />
+        <path
+           style="fill:#10c36a;fill-opacity:0.29951692;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 100.35268,39.03124 h 36.66369 v 36.663691 h -5.10268 V 44.13392 h -31.56101 z"
+           id="path852"
+           inkscape:connector-curvature="0" />
+        <path
+           style="fill:#ff6110;fill-opacity:0.68599034;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 89.202378,39.03124 H 52.349701 v 36.663691 h 5.291667 V 44.13392 h 31.56101 v -5.10268"
+           id="path854"
+           inkscape:connector-curvature="0" />
+        <path
+           style="fill:#0f6fc5;fill-opacity:0.647343;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 131.91369,87.034221 v 31.372019 h -31.56101 v 5.10268 h 36.66369 V 87.034221 Z"
+           id="path856"
+           inkscape:connector-curvature="0" />
+      </g>
+      <text
+         id="text1454"
+         y="105.11999"
+         x="76.373169"
+         style="font-style:normal;font-weight:normal;font-size:15.39902973px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#f5a422;fill-opacity:1;stroke:none;stroke-width:0.38497573"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:73.91534424px;font-family:'Abyssinica SIL';-inkscape-font-specification:'Abyssinica SIL';fill:#f5a422;fill-opacity:1;stroke-width:0.38497573"
+           y="105.11999"
+           x="76.373169"
+           id="tspan1452"
+           sodipodi:role="line">S</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:15.39902973px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.63999999;fill:#f5a422;fill-opacity:1;stroke:none;stroke-width:0.38497573"
+         x="74.483292"
+         y="107.00986"
+         id="text1458"><tspan
+           sodipodi:role="line"
+           id="tspan1456"
+           x="74.483292"
+           y="107.00986"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:73.91534424px;font-family:'Abyssinica SIL';-inkscape-font-specification:'Abyssinica SIL';fill:#f5a422;fill-opacity:1;stroke-width:0.38497573">S</tspan></text>
+      <g
+         transform="matrix(1.0326276,0,0,1.0326276,-2.5505872,-4.8142355)"
+         id="g1486">
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:48.35229874px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#f5a422;fill-opacity:1;stroke:none;stroke-width:1.20880747"
+           x="38.779118"
+           y="163.39278"
+           id="text1472"><tspan
+             sodipodi:role="line"
+             id="tspan1470"
+             x="38.779118"
+             y="163.39278"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Abyssinica SIL';-inkscape-font-specification:'Abyssinica SIL';fill:#f5a422;fill-opacity:1;stroke-width:1.20880747">SIEM</tspan></text>
+        <text
+           id="text1480"
+           y="164.14873"
+           x="37.834179"
+           style="font-style:normal;font-weight:normal;font-size:48.35229874px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.61000001;fill:#f5a422;fill-opacity:1;stroke:none;stroke-width:1.20880747"
+           xml:space="preserve"><tspan
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Abyssinica SIL';-inkscape-font-specification:'Abyssinica SIL';fill:#f5a422;fill-opacity:1;stroke-width:1.20880747"
+             y="164.14873"
+             x="37.834179"
+             id="tspan1478"
+             sodipodi:role="line">SIEM</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>
