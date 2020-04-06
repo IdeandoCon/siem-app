@@ -34,14 +34,15 @@ export class Tab2Page {
   ionViewDidEnter() {
    
     this.createBarChartSemanal()
-    
+    this.createBarChartSemestral()
+    this.createDiarioCategorias()
     
   }
   
 
 
   var_semanal() {
-    const my_url = 'http://www.mocky.io/v2/5d28754a2c000066003eda63?mocky-delay=1000ms'
+    const my_url = 'http://138.68.54.214:8080/apiDiario.json'
     this.http.get(my_url).subscribe(data => {
       console.log(data);
       this.apiDiario = data;
@@ -50,7 +51,7 @@ export class Tab2Page {
   }
 
   var_diarioCategorias(){
-    const my_url = 'http://www.mocky.io/v2/5d28754a2c000066003eda63?mocky-delay=1000ms'
+    const my_url = 'http://138.68.54.214:8080/apiCategoriasDiarias.json'
     this.http.get(my_url).subscribe(data => {
       console.log(data);
       this.apiDiarioCategoria = data;
@@ -59,7 +60,7 @@ export class Tab2Page {
   }
 
   var_semestral(){
-    const my_url = 'http://www.mocky.io/v2/5d28754a2c000066003eda63?mocky-delay=1000ms'
+    const my_url = 'http://138.68.54.214:8080/apiSemestral.json'
     this.http.get(my_url).subscribe(data => {
       console.log(data);
       this.apiSemestral = data;
@@ -68,7 +69,7 @@ export class Tab2Page {
   }
 
   var_anual(){
-    const my_url = 'http://www.mocky.io/v2/5d28754a2c000066003eda63?mocky-delay=1000ms'
+    const my_url = ''
     this.http.get(my_url).subscribe(data => {
       console.log(data);
       this.apiDiarioCategoria = data;
