@@ -40,42 +40,51 @@ export class Tab2Page {
   }
   
 
-
-  var_semanal() {
-    const my_url = 'http://138.68.54.214:8080/apiDiario.json'
-    this.http.get(my_url).subscribe(data => {
-      console.log(data);
-      this.apiDiario = data;
-      this.createBarChartSemanal();
-    })
+  ionViewWillEnter(){
+    
+    this.var_anual()
+    this.var_diarioCategorias()
+    this.var_semanal()
+    this.var_semestral()
   }
+  
+    var_semanal() {
+      const my_url = 'http://138.68.54.214:8080/apiDiario.json'
+      this.http.get(my_url).subscribe(data => {
+        console.log(data);
+        this.apiDiario = data;
+        this.createBarChartSemanal();
+      })
+    }
+  
+    var_diarioCategorias(){
+      const my_url = 'http://138.68.54.214:8080/apiCategoriasDiarias.json'
+      this.http.get(my_url).subscribe(data => {
+        console.log(data);
+        this.apiDiarioCategoria = data;
+        this.createDiarioCategorias();
+      })
+    }
+  
+    var_semestral(){
+      const my_url = 'http://138.68.54.214:8080/apiSemestral.json'
+      this.http.get(my_url).subscribe(data => {
+        console.log(data);
+        this.apiSemestral = data;
+        this.createBarChartSemestral();
+      })
+    }
+  
+    var_anual(){
+      const my_url = ''
+      this.http.get(my_url).subscribe(data => {
+        console.log(data);
+        this.apiDiarioCategoria = data;
+        //this.createBarChartAnual();
+      })
+    }
 
-  var_diarioCategorias(){
-    const my_url = 'http://138.68.54.214:8080/apiCategoriasDiarias.json'
-    this.http.get(my_url).subscribe(data => {
-      console.log(data);
-      this.apiDiarioCategoria = data;
-      this.createDiarioCategorias();
-    })
-  }
-
-  var_semestral(){
-    const my_url = 'http://138.68.54.214:8080/apiSemestral.json'
-    this.http.get(my_url).subscribe(data => {
-      console.log(data);
-      this.apiSemestral = data;
-      this.createBarChartSemestral();
-    })
-  }
-
-  var_anual(){
-    const my_url = ''
-    this.http.get(my_url).subscribe(data => {
-      console.log(data);
-      this.apiDiarioCategoria = data;
-      //this.createBarChartAnual();
-    })
-  }
+  
 
 
 
