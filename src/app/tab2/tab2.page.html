@@ -1,15 +1,13 @@
 <ion-header class="padding">
-  <ion-toolbar color="success">
-      <ion-buttons slot="secondary">
-        <ion-button Href="../buscar">
-          <ion-icon slot="icon-only" name="search"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-      <ion-title>
-          <img src="/assets/siem_logo.svg"
-          class="avatar animated fadeIn "
-          height="65px">
-      </ion-title>
+    <ion-toolbar color="success">
+        <ion-buttons slot="secondary">
+            <ion-button Href="../buscar">
+                <ion-icon slot="icon-only" name="search"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>
+            <img src="/assets/siem_logo.svg" class="avatar animated fadeIn " height="65px">
+        </ion-title>
 
     </ion-toolbar>
 </ion-header>
@@ -17,63 +15,58 @@
 
 <ion-content>
 
-  <ion-card color="secondary">
-    <ion-card-header>
-      <ion-card-title>RECAUDACIÓN</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <p>Sistema de Información Ejecutiva Municipal</p>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Informe Diario</ion-card-title>
-    </ion-card-header>
-
-    <ion-item>
-      <ion-label>DDD. MMM DD, YY (custom locale)</ion-label>
-      <ion-datetime value="1995-04-15" min="1990-02" max="2000"
-        [dayShortNames]="customDayShortNames"
-        displayFormat="DDD. MMM DD, YY"
-        monthShortNames="jan, feb, mar, apr, mai, jun, jul, aug, sep, okt, nov, des"></ion-datetime>
-    </ion-item>
-    <ion-card-content>
-      <p>Recaudación: $ 120.000</p>
-      <p>Gasto: $ 63.000</p>
-      <p>Balance diario: $ +53.000</p>
-    </ion-card-content>
-  </ion-card>
-
-  <div class="ion-padding">
-
-    <ion-card>
-      <ion-card-header>
-        Recaudación Diaria por Categorías
-      </ion-card-header>
-      <ion-card-content>
-        <canvas #doughnutCanvas></canvas>
-      </ion-card-content>
+    <ion-card color="secondary">
+        <ion-card-header>
+            <ion-card-title>RECAUDACIÓN</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <p>Sistema de Información Ejecutiva Municipal</p>
+        </ion-card-content>
     </ion-card>
 
     <ion-card>
-      <ion-card-header>
-        Recaudación Semanal
-      </ion-card-header>
-      <ion-card-content>
-        <canvas #barCanvas></canvas>
-      </ion-card-content>
+        <ion-card-header>
+            <ion-card-title>Informe Diario</ion-card-title>
+        </ion-card-header>
+
+        <ion-item>
+            <ion-label>DDD. MMM DD, YY (custom locale)</ion-label>
+            <ion-datetime value="1995-04-15" min="1990-02" max="2000" [dayShortNames]="customDayShortNames" displayFormat="DDD. MMM DD, YY" monthShortNames="jan, feb, mar, apr, mai, jun, jul, aug, sep, okt, nov, des"></ion-datetime>
+        </ion-item>
+        <ion-card-content>
+            <p>Recaudación: $ 120.000</p>
+            <p>Gasto: $ 63.000</p>
+            <p>Balance diario: $ +53.000</p>
+        </ion-card-content>
     </ion-card>
 
-    <ion-card>
-      <ion-card-header>
-        Historico de la Recaudación - Semestral
-      </ion-card-header>
-      <ion-card-content>
-        <canvas #lineCanvas></canvas>
-      </ion-card-content>
-    </ion-card>
-  </div>
+    <div class="ion-padding">
+
+        <ion-card (click)="var_diarioCategorias()">
+            <ion-card-header>
+                Recaudación Diaria por Categorías
+            </ion-card-header>
+            <ion-card-content>
+                <canvas #BarChartDiarioCategorias></canvas>
+            </ion-card-content>
+        </ion-card>
+
+        <ion-card (click)="var_semanal()">
+            <ion-card-header>
+                Recaudación Semanal
+            </ion-card-header>
+            <ion-card-content>
+                <canvas #BarChartSemanal></canvas>
+            </ion-card-content>
+        </ion-card>
+
+        <ion-card (click)="var_anual()">
+            <ion-card-header>
+                Historico de la Recaudación - Semestral
+            </ion-card-header>
+            <ion-card-content>
+                <canvas #BarChartSemestral></canvas>
+            </ion-card-content>
+        </ion-card>
+    </div>
 </ion-content>
-
-
