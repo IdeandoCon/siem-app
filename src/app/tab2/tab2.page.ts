@@ -41,7 +41,7 @@ export class Tab2Page {
   
 
   ionViewWillEnter(){
-    
+
     this.var_anual()
     this.var_diarioCategorias()
     this.var_semanal()
@@ -97,7 +97,7 @@ export class Tab2Page {
       labels: this.apiDiario && this.apiDiario.labels,
       datasets: [
         {
-          label: "# Miles de pesos",
+          label: "Miles de pesos",
           data: this.apiDiario && this.apiDiario.values,
           backgroundColor: [
             "rgba(255, 99, 132, 0.2)",
