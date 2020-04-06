@@ -34,9 +34,7 @@ export class Tab2Page {
   ionViewDidEnter() {
    
     this.createBarChartSemanal()
-    //this.createDiarioCategorias()
-    //this.createBarChartSemestral()
-    //this.createBarChartAnual()
+    
     
   }
   
@@ -56,7 +54,7 @@ export class Tab2Page {
     this.http.get(my_url).subscribe(data => {
       console.log(data);
       this.apiDiarioCategoria = data;
-      //this.createDiarioCategorias();
+      this.createDiarioCategorias();
     })
   }
 
@@ -65,7 +63,7 @@ export class Tab2Page {
     this.http.get(my_url).subscribe(data => {
       console.log(data);
       this.apiSemestral = data;
-     // this.createBarChartSemestral();
+      this.createBarChartSemestral();
     })
   }
 
@@ -120,11 +118,12 @@ export class Tab2Page {
         ]
       }
     }
-  });
+  })
+}
 
   
 
-  /*createDiarioCategorias() {
+  createDiarioCategorias() {
     let ctx = this.BarChartDiarioCategorias.nativeElement
     ctx.height = 400;
     this.BarsDiarioCat = new Chart(ctx,{
@@ -144,7 +143,7 @@ export class Tab2Page {
         }
       ]
     }
-  });
+  })}
 
   createBarChartSemestral() {
     let ctx = this.BarChartSemestral.nativeElement
@@ -181,7 +180,7 @@ export class Tab2Page {
   });
 
 
-  */
+  
 }
       
 
