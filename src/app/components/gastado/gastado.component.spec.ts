@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { DonaComponent } from './dona.component';
+import { GastadoComponent } from './gastado.component';
 
-describe('DonaComponent', () => {
-  let component: DonaComponent;
-  let fixture: ComponentFixture<DonaComponent>;
+describe('GastadoComponent', () => {
+  let component: GastadoComponent;
+  let fixture: ComponentFixture<GastadoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DonaComponent ],
+      declarations: [ GastadoComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(DonaComponent);
+    fixture = TestBed.createComponent(GastadoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
