@@ -21,7 +21,7 @@ export class LoginPage {
     const user = { email: this.email, password: this.password };
     this.userService.login(user).subscribe(data => {
       this.userService.setToken(data.token);
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/tabs');
     });
   }
 }

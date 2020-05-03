@@ -1,4 +1,3 @@
-import { OnInit, ElementRef } from "@angular/core";
 import { Component, ViewChild } from '@angular/core';
 
 import { Chart } from "chart.js";

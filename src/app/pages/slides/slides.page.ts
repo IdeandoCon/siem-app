@@ -37,7 +37,7 @@ export class SlidesPage implements OnInit {
   }
 
   onClick() {
-    this.navCtrl.navigateForward( '/tabs' );
+    this.navCtrl.navigateForward( '/login' );
 
   }
 
