@@ -1,24 +1,37 @@
-<app-header></app-header>
-
 <ion-content>
-  <div class="login">
-    <form class="custom-form" method="post">
-      <h1>Acceder al SIEM</h1>
-      <input
-        type="email"
-        [(ngModel)]="email"
-        name="Correo"
-        placeholder="Correo"
-        required="required"
-      />
-      <input
-        type="password"
-        [(ngModel)]="password"
-        name="Contraseña"
-        placeholder="Contraseña"
-        required="required"
-      />
-      <button type="submit" (click)="login()">Entrar</button>
-    </form>
-  </div>
+
+    <ion-slides pager="true" class="slide-full" [options]="slideOpts">
+
+        <ion-slide *ngFor="let slide of slides">
+
+            <ion-card mode="ios">
+
+                <img [src]="slide.img" class="slide-image">
+                <ion-card-header>
+                    <ion-card-title>
+                        {{ slide.titulo }}
+                    </ion-card-title>
+                </ion-card-header>
+
+                <ion-card-content>
+                    {{ slide.desc }}
+                </ion-card-content>
+
+            </ion-card>
+
+        </ion-slide>
+
+
+    </ion-slides>
+
+
+    <div class="login">
+
+        <form class="custom-form" method="post">
+            <h5 class="titulo-login">Acceso al sistema</h5>
+            <input type="email" [(ngModel)]="email" name="Usuario" placeholder="Correo" required="required" />
+            <input type="password" [(ngModel)]="password" name="Contraseña" placeholder="Contraseña" required="required" />
+            <button type="submit" (click)="login()">Entrar</button>
+        </form>
+    </div>
 </ion-content>
