@@ -2,8 +2,8 @@
 
 <ion-content>
     <ion-card mode="ios" color="secondary">
-        <ion-card-header>
-            <img src="https://vigorous-chandrasekhar-2ee519.netlify.app/img/logos/logo-sanjavier.svg" />
+        <ion-card-header *ngFor="let logo of logos">
+            <img src={{logo.img}} />
             <ion-card-title class="titulo">RECAUDACIÓN</ion-card-title>
         </ion-card-header>
     </ion-card>

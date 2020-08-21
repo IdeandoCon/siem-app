@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserService } from 'src/app/api/user.service';
 
 @Component({
   selector: 'app-tab1',
@@ -9,7 +10,9 @@ export class Tab1Page {
   customYearValues = [2020, 2016, 2008, 2004, 2000, 1996];
   customDayShortNames = ['Domingo', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'];
   customPickerOptions: any;
-  constructor() {
+  logos: any;
+
+  constructor(public userService: UserService) {
     this.customPickerOptions = {
       buttons: [{
         text: 'Save',
@@ -22,6 +25,18 @@ export class Tab1Page {
         }
       }]
     };
+  }
+
+  ionViewWillEnter() {
+    this.getLogo();
+    
+  }
+  getLogo() {
+    // Get saved list of students
+    this.userService.getLogos().subscribe(response => {
+      this.logos = response;
+      console.log(response);
+    });
   }
 
 }

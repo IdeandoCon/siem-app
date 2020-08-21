@@ -26,7 +26,7 @@ export class Tab2Page {
   apiAnual: any;
   apiSemestral: any;
   apiDiarioCategoria: any;
-  logos: string;
+  logos: any;
 
   customYearValues = [2020, 2016, 2008, 2004, 2000, 1996];
   customDayShortNames = ['Domingo', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'];

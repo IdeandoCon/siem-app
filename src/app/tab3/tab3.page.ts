@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { UserService } from 'src/app/api/user.service';
 
 import { Chart } from "chart.js";
 import { HttpClient } from "@angular/common/http";
@@ -26,7 +27,8 @@ export class Tab3Page {
   apiSemestral:any;
   apiDiarioCategoria:any;
 
-  constructor(private http:HttpClient) {}
+  logos: any;
+  constructor(private http:HttpClient, public userService: UserService) {}
 
 
 
@@ -40,11 +42,20 @@ export class Tab3Page {
   
 
   ionViewWillEnter(){
+    this.getLogo();
 
     this.gasto_anual()
     this.gasto_diarioCategorias()
     this.gasto_semanal()
     this.gasto_semestral()
+  }
+
+  getLogo() {
+    // Get saved list of students
+    this.userService.getLogos().subscribe(response => {
+      this.logos = response;
+      console.log(response);
+    });
   }
   
     gasto_semanal() {
