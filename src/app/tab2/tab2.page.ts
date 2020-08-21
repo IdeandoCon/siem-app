@@ -27,7 +27,24 @@ export class Tab2Page {
   apiSemestral: any;
   apiDiarioCategoria: any;
   logos: string;
-  constructor( private http: HttpClient, public userService: UserService) {}
+
+  customYearValues = [2020, 2016, 2008, 2004, 2000, 1996];
+  customDayShortNames = ['Domingo', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'];
+  customPickerOptions: any;
+  constructor( private http: HttpClient, public userService: UserService) {
+    this.customPickerOptions = {
+      buttons: [{
+        text: 'Save',
+        handler: () => console.log('Clicked Save!')
+      }, {
+        text: 'Log',
+        handler: () => {
+          console.log('Clicked Log. Do not Dismiss.');
+          return false;
+        }
+      }]
+    };
+  }
 
   ionViewDidEnter() {
 
