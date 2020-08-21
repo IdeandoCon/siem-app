@@ -1,12 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
+import { UserService } from 'src/app/api/user.service';
 
-import { Chart } from "chart.js";
-import { HttpClient } from "@angular/common/http";
+import { Chart } from 'chart.js';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: "app-tab2",
-  templateUrl: "tab2.page.html",
-  styleUrls: ["tab2.page.scss"]
+  selector: 'app-tab2',
+  templateUrl: 'tab2.page.html',
+  styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
   @ViewChild('BarChartSemanal', {static: false}) BarChartSemanal;
@@ -20,60 +21,67 @@ export class Tab2Page {
   BarsSemestral:any;
   colorArray: any;
 
-  
+
   apiDiario:any;
   apiAnual:any;
   apiSemestral:any;
   apiDiarioCategoria:any;
+  logos:string;
+  constructor(private http:HttpClient, public userService: UserService) {}
 
-  constructor(private http:HttpClient) {}
-
-
+  
 
   ionViewDidEnter() {
-   
+
     this.createBarChartSemanal()
     this.createBarChartSemestral()
     this.createDiarioCategorias()
-    
+
   }
-  
+
 
   ionViewWillEnter(){
-
+    this.getLogo();
     this.var_anual()
     this.var_diarioCategorias()
     this.var_semanal()
     this.var_semestral()
   }
-  
+  getLogo() {
+    // Get saved list of students
+    this.userService.getLogos().subscribe(response => {
+      this.logos = response;
+      console.log(response);
+    });
+  }
+
     var_semanal() {
-      const my_url = 'http://138.68.54.214:8080/apiDiario.json'
+      const my_url = 'https://vigorous-chandrasekhar-2ee519.netlify.app/apiDiario.json'
       this.http.get(my_url).subscribe(data => {
         console.log(data);
         this.apiDiario = data;
         this.createBarChartSemanal();
       })
     }
-  
+
     var_diarioCategorias(){
-      const my_url = 'http://138.68.54.214:8080/apiCategoriasDiarias.json'
+      const my_url = 'https://vigorous-chandrasekhar-2ee519.netlify.app/apiCategoriasDiarias.json'
       this.http.get(my_url).subscribe(data => {
         console.log(data);
         this.apiDiarioCategoria = data;
         this.createDiarioCategorias();
       })
     }
-  
+
     var_semestral(){
-      const my_url = 'http://138.68.54.214:8080/apiSemestral.json'
+      const my_url = 'https://vigorous-chandrasekhar-2ee519.netlify.app/apiSemestral.json'
       this.http.get(my_url).subscribe(data => {
         console.log(data);
         this.apiSemestral = data;
         this.createBarChartSemestral();
       })
     }
-  
+
     var_anual(){
       const my_url = ''
       this.http.get(my_url).subscribe(data => {
@@ -83,7 +91,7 @@ export class Tab2Page {
       })
     }
 
-  
+
 
 
 
@@ -91,7 +99,7 @@ export class Tab2Page {
     let ctx = this.BarChartSemanal.nativeElement
     ctx.height = 400;
     this.BarsDiario = new Chart(ctx,{
-    type: "bar",
+    type: 'bar',
     data: {
       labels: this.apiDiario && this.apiDiario.labels,
       datasets: [
@@ -189,8 +197,9 @@ export class Tab2Page {
   });
 
 
-  
+
 }
-      
-    
+
+
+
 }

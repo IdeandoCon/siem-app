@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="70.421913mm"
+   height="43.257175mm"
+   viewBox="0 0 70.421913 43.257175"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.0 (b51213c273, 2020-08-10)"
+   sodipodi:docname="iem.svg">
+  <defs
+     id="defs2">
+    <rect
+       x="56.293167"
+       y="72.216934"
+       width="78.624214"
+       height="36.697327"
+       id="rect843" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="263.71802"
+     inkscape:cy="243.86201"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     inkscape:window-width="1853"
+     inkscape:window-height="1025"
+     inkscape:window-x="67"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-51.012066,-62.778336)">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="62.431488"
+       y="74.207726"
+       id="text835"><tspan
+         sodipodi:role="line"
+         id="tspan833"
+         x="62.431488"
+         y="74.207726"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Asap Condensed';-inkscape-font-specification:'Asap Condensed, ';fill:#ffffff;stroke-width:0.264583">INFORMACION</tspan><tspan
+         sodipodi:role="line"
+         x="62.431488"
+         y="88.021507"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Asap Condensed';-inkscape-font-specification:'Asap Condensed, ';fill:#ffffff;stroke-width:0.264583"
+         id="tspan837">EJECUTIVA</tspan><tspan
+         sodipodi:role="line"
+         x="62.431488"
+         y="101.83528"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Asap Condensed';-inkscape-font-specification:'Asap Condensed, ';fill:#ffffff;stroke-width:0.264583"
+         id="tspan839">MUNICIPAL</tspan></text>
+    <text
+       xml:space="preserve"
+       id="text841"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect843);fill:#000000;fill-opacity:1;stroke:none;" />
+  </g>
+</svg>
