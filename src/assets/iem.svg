@@ -7,15 +7,21 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="70.421913mm"
-   height="43.257175mm"
-   viewBox="0 0 70.421913 43.257175"
+   width="90.155693mm"
+   height="30.843281mm"
+   viewBox="0 0 90.155693 30.843281"
    version="1.1"
    id="svg8"
    inkscape:version="1.0 (b51213c273, 2020-08-10)"
    sodipodi:docname="iem.svg">
   <defs
      id="defs2">
+    <rect
+       x="122.75039"
+       y="96.835175"
+       width="62.80452"
+       height="25.693487"
+       id="rect850" />
     <rect
        x="56.293167"
        y="72.216934"
@@ -30,9 +36,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="263.71802"
-     inkscape:cy="243.86201"
+     inkscape:zoom="2.8"
+     inkscape:cx="145.26681"
+     inkscape:cy="100.41046"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -58,31 +64,47 @@
      inkscape:label="Capa 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-51.012066,-62.778336)">
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="62.431488"
-       y="74.207726"
-       id="text835"><tspan
-         sodipodi:role="line"
-         id="tspan833"
-         x="62.431488"
-         y="74.207726"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Asap Condensed';-inkscape-font-specification:'Asap Condensed, ';fill:#ffffff;stroke-width:0.264583">INFORMACION</tspan><tspan
-         sodipodi:role="line"
-         x="62.431488"
-         y="88.021507"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Asap Condensed';-inkscape-font-specification:'Asap Condensed, ';fill:#ffffff;stroke-width:0.264583"
-         id="tspan837">EJECUTIVA</tspan><tspan
-         sodipodi:role="line"
-         x="62.431488"
-         y="101.83528"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Asap Condensed';-inkscape-font-specification:'Asap Condensed, ';fill:#ffffff;stroke-width:0.264583"
-         id="tspan839">MUNICIPAL</tspan></text>
+     transform="translate(-52.662971,-68.915024)">
     <text
        xml:space="preserve"
        id="text841"
        style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect843);fill:#000000;fill-opacity:1;stroke:none;" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:0;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#cccccc;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="71.639008"
+       y="78.144585"
+       id="text835"><tspan
+         sodipodi:role="line"
+         id="tspan833"
+         x="71.639008"
+         y="78.144585"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:0.95;font-family:Roboto;-inkscape-font-specification:Roboto;fill:#ffffff;stroke-width:0.264583">INFORMACION</tspan><tspan
+         sodipodi:role="line"
+         x="71.639008"
+         y="87.528473"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:0.95;font-family:Roboto;-inkscape-font-specification:Roboto;fill:#ffffff;stroke-width:0.264583"
+         id="tspan837">EJECUTIVA</tspan><tspan
+         sodipodi:role="line"
+         x="71.639008"
+         y="96.912369"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:0.95;font-family:Roboto;-inkscape-font-specification:Roboto;fill:#ffffff;stroke-width:0.264583"
+         id="tspan839">MUNICIPAL</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.92526px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.185164"
+       x="-97.534912"
+       y="69.922485"
+       id="text846"
+       transform="rotate(-90.52497)"><tspan
+         sodipodi:role="line"
+         id="tspan844"
+         x="-97.534912"
+         y="69.922485"
+         style="font-size:5.92526px;fill:#ffffff;stroke-width:0.185164">SISTEMA</tspan></text>
+    <text
+       xml:space="preserve"
+       id="text848"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect850);fill:#000000;fill-opacity:1;stroke:none;" />
   </g>
 </svg>
