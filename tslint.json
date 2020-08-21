@@ -66,6 +66,7 @@
     "no-host-metadata-property": true,
     "no-input-rename": true,
     "no-output-rename": true,
+    "variable-name":false,
     "use-lifecycle-interface": true,
     "use-pipe-transform-interface": true,
     "one-variable-per-declaration": false,
