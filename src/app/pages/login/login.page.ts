@@ -45,6 +45,11 @@ export class LoginPage {
       img: '/assets/slides/isologo.svg',
       titulo: 'Gastos',
       desc: 'Gastos diarios por categoría, gastos semanales e historico de gastos'
+    },
+    {
+      img: '/assets/ideando_isologo.png',
+      titulo: 'Ideando Consultoria',
+      desc: '¡ Juntos Concretamos IDEAS !'
     }
   ];
 
