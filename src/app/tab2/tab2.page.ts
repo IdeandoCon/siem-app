@@ -123,7 +123,7 @@ export class Tab2Page {
 
 
     var_ingreso_mensual() {
-      const my_url = URL_SERVIDOR + '/recaudacion-semanal/2020/5'; //consultar por que esta repetida
+      const my_url = URL_SERVIDOR + '/recaudacion-mensual/2020'
       var token = URL_TOKEN;
       const headers = { 
         'content-type': 'application/json',
@@ -213,18 +213,18 @@ export class Tab2Page {
           label: this.apiLeyendaSemanal,
           data: this.apiSemanal,
           backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
+            'rgba(192, 2, 87, 0.2)',
+            'rgba(1, 60, 131, 0.2)',
             'rgba(253, 79, 48, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)'
+            'rgba(1, 90, 96, 0.2)',
+            'rgba(31, 86, 1, 0.2)'
           ],
           borderColor: [
-            'rgba(255,99,132,1)',
-            'rgba(54, 162, 235, 1)',
+            'rgba(192, 2, 87,1)',
+            'rgba(1, 60, 131, 1)',
             'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)'
+            'rgba(1, 90, 96,  1)',
+            'rgba(31, 86, 1, 1)'
           ],
           borderWidth: 1
         }
