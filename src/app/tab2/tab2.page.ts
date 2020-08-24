@@ -3,7 +3,7 @@ import { UserService } from 'src/app/api/user.service';
 import { Observable } from 'rxjs';
 import { URL_TOKEN } from 'src/app/config/config'
 import { URL_SERVIDOR } from 'src/app/config/config'
-import {DataResultado, Resultado, OtrasJurisdicciones, JurisdiccionMunicipal  } from 'src/app/interfaces/resultados'
+import {DataResultado, Resultado, JurisdiccionMunicipal  } from 'src/app/interfaces/resultados'
 
 
 import { Chart } from 'chart.js';
@@ -22,10 +22,8 @@ export class Tab2Page {
   @ViewChild('BarChartMunicipales', {static: false}) BarChartMunicipales;
   @ViewChild('BarChartSemestral', {static: false}) BarChartSemestral;
   @ViewChild('BarChartAnual', {static: false}) BarChartAnual;
-  @ViewChild('BarChartDiarioCategorias', {static: false}) BarChartDiarioCategorias;
 
   BarsDiario: any;
-  BarsDiarioCat: any;
   BarSemanal: any;
   BarsSemestral: any;
   BarsAnual: any;
@@ -39,7 +37,6 @@ export class Tab2Page {
   apiSemestral: any;
   apiAnual: any;
 
-
   logos: any;
 
   customYearValues = [2020, 2016, 2008, 2004, 2000, 1996];
@@ -49,8 +46,7 @@ export class Tab2Page {
   DataResultado : Resultado;
   apiLeyendaSemanal:any;
   apiDiaSemanal: any;
-  apiIngresoMunicipalOtras:any;
-  apiLeyendaMunicipalOtras:any;
+  
   apiIngresoMunicipal:any;
   apiLeyendaMunicipal:any;
 
@@ -74,7 +70,6 @@ export class Tab2Page {
   ionViewDidEnter() {
     this.createBarChartSemanal();
     this.createBarChartSemestral();
-    this.createOtrasJurisdicciones();
     this.createJurisdiccionMunicipal();
   }
 
@@ -87,7 +82,6 @@ export class Tab2Page {
     this.var_semestral();
     this.var_ingreso_mensual();
     this.var_ingreso_capital();
-    this.var_ingreso_otrasJurisdicciones();
     this.var_ingreso_jurisdiccionMunicipal();
 
   }
@@ -164,26 +158,6 @@ export class Tab2Page {
 
 
 
-    var_ingreso_otrasJurisdicciones() {
-      const my_url = URL_SERVIDOR + '/otras-jur/2020/20200101/20200131'; 
-      var token = URL_TOKEN;
-      const headers = { 
-        'content-type': 'application/json',
-        'x-token': token
-      }  
-      this.http.get<OtrasJurisdicciones>(my_url , {headers: headers}).subscribe(data => {
-        let ingresoMunicipal = data['resultado'].map(data => data.importe);
-        let leyendaMunicipal = data['resultado'].map(data => data.leyenda);
-
-        console.log('Ingreso de Otras Jurisdiciones', data);
-
-        this.apiIngresoMunicipalOtras = ingresoMunicipal;
-        this.apiLeyendaMunicipalOtras = leyendaMunicipal;
-        this.createOtrasJurisdicciones();
-
-        console.log(this.apiIngresoMunicipalOtras)
-      });
-    }
 
 
 
@@ -270,33 +244,7 @@ export class Tab2Page {
   });
 }
 
-  createOtrasJurisdicciones() {
-    const ctx = this.BarChartDiarioCategorias.nativeElement;
-    ctx.height = 400;
-    this.BarsDiarioCat = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels:this.apiLeyendaMunicipalOtras,
-      datasets: [
-        {
-          label: '# Miles de pesos',
-          data: this.apiIngresoMunicipalOtras,
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.3)',
-            'rgba(54, 162, 235, 0.3)',
-            'rgba(253, 79, 48, 0.3)',
-            'rgba(7, 35, 7, 0.3)',
-            'rgba(38, 2, 43, 0.3)'
-          ],
-          hoverBackgroundColor: ['#FF6384', '#36A2EB', '#fd4f30', '#115912', '#62056e']
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false
-       }
-  }); }
+  
 
   createJurisdiccionMunicipal() {
     const ctx = this.BarChartMunicipales.nativeElement;

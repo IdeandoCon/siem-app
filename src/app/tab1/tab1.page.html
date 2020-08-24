@@ -8,19 +8,15 @@
         </ion-card-header>
     </ion-card>
 
-    <ion-card mode="ios">
+    <ion-card mode="ios" class="tarjetadeotras">
         <ion-card-header>
-            <ion-card-title>Informe Ejecutivo</ion-card-title>
+           <h5>Ingreso de Otras Jurisdiciones</h5> 
         </ion-card-header>
-
-        <ion-item>
-            <ion-datetime value="1995-04-15" min="1990-02" max="2021" [dayShortNames]="customDayShortNames" displayFormat="DDD. MMM DD, YY" monthShortNames="jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dic"></ion-datetime>
-        </ion-item>
-        <ion-card-content>
-            <p>Recaudación: $ 120.000</p>
-            <p>Gasto: $ 63.000</p>
-            <p>Balance diario: $ +53.000</p>
+        <ion-card-content >
+            <canvas #BarsChartOtrasJurisdicciones></canvas>
         </ion-card-content>
     </ion-card>
+
+
 
 </ion-content>
