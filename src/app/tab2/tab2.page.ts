@@ -242,7 +242,7 @@ export class Tab2Page {
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
+            'rgba(253, 79, 48, 0.2)',
             'rgba(75, 192, 192, 0.2)',
             'rgba(153, 102, 255, 0.2)'
           ],
@@ -283,13 +283,13 @@ export class Tab2Page {
           label: '# Miles de pesos',
           data: this.apiIngresoMunicipalOtras,
           backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(7, 35, 7, 0.2)',
-            'rgba(38, 2, 43, 0.2)'
+            'rgba(255, 99, 132, 0.3)',
+            'rgba(54, 162, 235, 0.3)',
+            'rgba(253, 79, 48, 0.3)',
+            'rgba(7, 35, 7, 0.3)',
+            'rgba(38, 2, 43, 0.3)'
           ],
-          hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#115912', '#62056e']
+          hoverBackgroundColor: ['#FF6384', '#36A2EB', '#fd4f30', '#115912', '#62056e']
         }
       ]
     },
