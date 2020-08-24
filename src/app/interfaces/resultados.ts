@@ -23,3 +23,16 @@ export interface OtrasJurisdiccionesResultado {
   leyenda: string;
   importe: number;
 }
+
+
+export interface JurisdiccionMunicipal {
+  ok: boolean;
+  titulo: string;
+  resultado: JurisdiccionMunicipalResultado[];
+}
+
+export interface JurisdiccionMunicipalResultado {
+  jerarquia: string;
+  leyenda: string;
+  importe: number;
+}

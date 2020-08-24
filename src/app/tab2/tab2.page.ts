@@ -3,9 +3,7 @@ import { UserService } from 'src/app/api/user.service';
 import { Observable } from 'rxjs';
 import { URL_TOKEN } from 'src/app/config/config'
 import { URL_SERVIDOR } from 'src/app/config/config'
-import { DataResultado } from 'src/app/interfaces/resultados'
-import { Resultado } from 'src/app/interfaces/resultados'
-import { OtrasJurisdicciones } from 'src/app/interfaces/resultados'
+import {DataResultado, Resultado, OtrasJurisdicciones, JurisdiccionMunicipal  } from 'src/app/interfaces/resultados'
 
 
 import { Chart } from 'chart.js';
@@ -21,6 +19,7 @@ import { map } from 'rxjs/operators';
 
 export class Tab2Page {
   @ViewChild('BarChartSemanal', {static: false}) BarChartSemanal;
+  @ViewChild('BarChartMunicipales', {static: false}) BarChartMunicipales;
   @ViewChild('BarChartSemestral', {static: false}) BarChartSemestral;
   @ViewChild('BarChartAnual', {static: false}) BarChartAnual;
   @ViewChild('BarChartDiarioCategorias', {static: false}) BarChartDiarioCategorias;
@@ -30,6 +29,7 @@ export class Tab2Page {
   BarSemanal: any;
   BarsSemestral: any;
   BarsAnual: any;
+  BarsMunicipales:any;
 
   colorArray: any;
 
@@ -51,6 +51,8 @@ export class Tab2Page {
   apiDiaSemanal: any;
   apiIngresoMunicipalOtras:any;
   apiLeyendaMunicipalOtras:any;
+  apiIngresoMunicipal:any;
+  apiLeyendaMunicipal:any;
 
 
   constructor( private http: HttpClient, public userService: UserService) {
@@ -73,6 +75,7 @@ export class Tab2Page {
     this.createBarChartSemanal();
     this.createBarChartSemestral();
     this.createOtrasJurisdicciones();
+    this.createJurisdiccionMunicipal();
   }
 
 
@@ -86,6 +89,7 @@ export class Tab2Page {
     this.var_ingreso_capital();
     this.var_ingreso_otrasJurisdicciones();
     this.var_ingreso_jurisdiccionMunicipal();
+
   }
 
   getLogo() {
@@ -194,9 +198,13 @@ export class Tab2Page {
         'content-type': 'application/json',
         'x-token': token
       }  
-      this.http.get(my_url , {headers: headers}).subscribe(data => {
+      this.http.get<JurisdiccionMunicipal>(my_url , {headers: headers}).subscribe(data => {
+        let ingresoJurisdiccionMunicipal = data['resultado'].map(data => data.importe);
+        let leyendaJurisdiccionMunicipal = data['resultado'].map(data => data.leyenda)
+
         console.log('Ingreso de Jurisdicion Municipal', data);
-        this.apiDiario = data;
+        this.apiIngresoMunicipal = ingresoJurisdiccionMunicipal;
+        this.apiLeyendaMunicipal = leyendaJurisdiccionMunicipal;
       });
     }
 
@@ -291,6 +299,34 @@ export class Tab2Page {
        }
   }); }
 
+  createJurisdiccionMunicipal() {
+    const ctx = this.BarChartMunicipales.nativeElement;
+    ctx.height = 400;
+    this.BarsMunicipales = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels:this.apiLeyendaMunicipal,
+      datasets: [
+        {
+          label: '# Miles de pesos',
+          data: this.apiIngresoMunicipal,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(7, 35, 7, 0.2)',
+            'rgba(38, 2, 43, 0.2)',
+            'rgba(38, 2, 43, 0.2)'
+          ],
+          hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#115912', '#62056e', '#22056e']
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false
+       }
+  }); }
 
 
 
