@@ -177,7 +177,6 @@ export class Tab2Page {
 
         console.log('Ingreso de Otras Jurisdiciones', data);
 
-        this.apiDiario = data;
         this.apiIngresoMunicipalOtras = ingresoMunicipal;
         this.apiLeyendaMunicipalOtras = leyendaMunicipal;
         this.createOtrasJurisdicciones();
@@ -205,12 +204,12 @@ export class Tab2Page {
         console.log('Ingreso de Jurisdicion Municipal', data);
         this.apiIngresoMunicipal = ingresoJurisdiccionMunicipal;
         this.apiLeyendaMunicipal = leyendaJurisdiccionMunicipal;
+        this.createJurisdiccionMunicipal();
+
       });
     }
 
     
-
-   
 
     var_semestral() {
       const my_url = 'https://vigorous-chandrasekhar-2ee519.netlify.app/apiSemestral.json';
@@ -305,11 +304,11 @@ export class Tab2Page {
     this.BarsMunicipales = new Chart(ctx, {
     type: 'doughnut',
     data: {
-      labels:this.apiLeyendaMunicipal,
+      labels:this.apiLeyendaMunicipal ,
       datasets: [
         {
           label: '# Miles de pesos',
-          data: this.apiIngresoMunicipal,
+          data: this.apiIngresoMunicipal ,
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
