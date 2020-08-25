@@ -40,6 +40,7 @@ export class Tab2Page {
   logos: any;
 
   customYearValues = [2020, 2016, 2008, 2004, 2000, 1996];
+  customMonthValues = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   customDayShortNames = ['Domingo', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'];
   customPickerOptions: any;
 
