@@ -3,7 +3,7 @@ import { UserService } from 'src/app/api/user.service';
 import { Observable } from 'rxjs';
 import { URL_TOKEN } from 'src/app/config/config'
 import { URL_SERVIDOR } from 'src/app/config/config'
-import {DataResultado, Resultado, JurisdiccionMunicipal  } from 'src/app/interfaces/resultados'
+import {DataResultado, Resultado, JurisdiccionMunicipal, IngresoMensualInterface  } from 'src/app/interfaces/resultados'
 
 
 import { Chart } from 'chart.js';
@@ -51,6 +51,8 @@ export class Tab2Page {
   apiIngresoMunicipal:any;
   apiLeyendaMunicipal:any;
 
+  apiIngresoMensual:any;
+
 
   constructor( private http: HttpClient, public userService: UserService) {
     this.customPickerOptions = {
@@ -93,6 +95,11 @@ export class Tab2Page {
     });
   }
 
+
+
+
+
+
     var_semanal() {
       const my_url = URL_SERVIDOR + '/recaudacion-semanal/2020/5';
       var token = URL_TOKEN;
@@ -105,22 +112,34 @@ export class Tab2Page {
         let leyenda = data['resultado'].map(data => data.leyenda);
         let dia = data['resultado'].map(data => data.dia)
 
-        console.log(importe)
-
-        var ImporteOrdenado = data.resultado.reduce((r, a) => {
+        
+        /*var ImporteOrdenado = data.resultado.reduce((r, a) => { la posta
           r[a.dia] = [...r[a.dia] || [], a];
           return r;
+        }, {});*/
+
+        var ImporteOrdenado2 = data.resultado.reduce((r, a) => {
+          r[a.dia] = [...r[a.dia] || [], a];
+          return r;
+          
         }, {});
-        console.log(ImporteOrdenado)      
+        let ingresoDiario = ImporteOrdenado2
+
+        console.log(ingresoDiario)      
         
         this.apiSemanal = importe;
         this.apiLeyendaSemanal = leyenda;
         this.apiDiaSemanal = dia;
         
+        console.log(importe)
         this.createBarChartSemanal();
 
       });
     }
+
+
+
+
 
 
     var_ingreso_mensual() {
@@ -130,10 +149,11 @@ export class Tab2Page {
         'content-type': 'application/json',
         'x-token': token
       }  
-      this.http.get(my_url , {headers: headers}).subscribe(data => {
-        console.log('Ingreso Mensual', data);
-        this.apiDiario = data;
-        this.createBarChartSemanal();
+      this.http.get<IngresoMensualInterface>(my_url , {headers: headers}).subscribe(data => {
+        let ingresoMensual = data['resultado'].map(data => data.importe);
+        //console.log('Ingreso Mensual', ingresoMensual);
+        this.apiIngresoMensual = ingresoMensual;
+        this.createBarChartSemestral();
       });
     }
 
@@ -146,7 +166,7 @@ export class Tab2Page {
         'x-token': token
       }  
       this.http.get(my_url , {headers: headers}).subscribe(data => {
-        console.log('Ingreso capital', data);
+        //console.log('Ingreso capital', data);
         this.apiDiario = data;
         this.createBarChartSemanal();
       });
@@ -176,7 +196,7 @@ export class Tab2Page {
         let ingresoJurisdiccionMunicipal = data['resultado'].map(data => data.importe);
         let leyendaJurisdiccionMunicipal = data['resultado'].map(data => data.leyenda)
 
-        console.log('Ingreso de Jurisdicion Municipal', data);
+        //console.log('Ingreso de Jurisdicion Municipal', data);
         this.apiIngresoMunicipal = ingresoJurisdiccionMunicipal;
         this.apiLeyendaMunicipal = leyendaJurisdiccionMunicipal;
         this.createJurisdiccionMunicipal();
@@ -287,7 +307,8 @@ export class Tab2Page {
       labels: this.apiSemestral && this.apiSemestral.labels ,
       datasets: [
         {
-          label: 'Síntesis de Recaudación Histórico',
+          data: this.apiIngresoMensual,
+          label: 'Ingreso Municipal Mensual',
           fill: false,
           lineTension: 0.1,
           backgroundColor: 'rgba(75,192,192,0.4)',
@@ -305,7 +326,6 @@ export class Tab2Page {
           pointHoverBorderWidth: 2,
           pointRadius: 1,
           pointHitRadius: 10,
-          data: this.apiSemestral && this.apiSemestral.values,
           spanGaps: false
         }
       ]

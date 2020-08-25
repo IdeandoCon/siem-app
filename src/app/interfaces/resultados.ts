@@ -36,3 +36,14 @@ export interface JurisdiccionMunicipalResultado {
   leyenda: string;
   importe: number;
 }
+
+export interface IngresoMensualInterface {
+  ok: boolean;
+  titulo: string;
+  resultado: IngresoMensualResultado[];
+}
+
+export interface IngresoMensualResultado {
+  '': number;
+  importe: number;
+}
