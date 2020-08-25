@@ -3,7 +3,7 @@ import { UserService } from 'src/app/api/user.service';
 import { Observable } from 'rxjs';
 import { URL_TOKEN } from 'src/app/config/config'
 import { URL_SERVIDOR } from 'src/app/config/config'
-import {DataResultado, Resultado, JurisdiccionMunicipal  } from 'src/app/interfaces/resultados'
+import {DataResultado, Resultado, JurisdiccionMunicipal, IngresoMensualInterface  } from 'src/app/interfaces/resultados'
 
 
 import { Chart } from 'chart.js';
