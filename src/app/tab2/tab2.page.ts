@@ -46,7 +46,7 @@ export class Tab2Page {
 
   DataResultado : Resultado;
   apiLeyendaSemanal:any;
-  apiDiaSemanal: any;
+  apiDiaSemanal: number[];
   
   apiIngresoMunicipal:any;
   apiLeyendaMunicipal:any;
@@ -55,6 +55,7 @@ export class Tab2Page {
 
 
   constructor( private http: HttpClient, public userService: UserService) {
+    this.apiSemanal = [];
     this.customPickerOptions = {
       buttons: [{
         text: 'Save',
@@ -107,33 +108,24 @@ export class Tab2Page {
         'content-type': 'application/json',
         'x-token': token
       }  
-      this.http.get<DataResultado>(my_url , {headers: headers}).subscribe(data => {
-        let importe = data['resultado'].map(data => data.importe);
-        let leyenda = data['resultado'].map(data => data.leyenda);
-        let dia = data['resultado'].map(data => data.dia)
-
-        
-        /*var ImporteOrdenado = data.resultado.reduce((r, a) => { la posta
-          r[a.dia] = [...r[a.dia] || [], a];
-          return r;
-        }, {});*/
-
-        var ImporteOrdenado2 = data.resultado.reduce((r, a) => {
-          r[a.dia] = [...r[a.dia] || [], a];
-          return r;
-          
-        }, {});
-        let ingresoDiario = ImporteOrdenado2
-
-        console.log(ingresoDiario)      
-        
-        this.apiSemanal = importe;
-        this.apiLeyendaSemanal = leyenda;
-        this.apiDiaSemanal = dia;
-        
-        console.log(importe)
-        this.createBarChartSemanal();
-
+      this.http.get<DataResultado>(my_url , {headers: headers}).subscribe( data => {
+        this.apiSemanal = [];
+        const arrayInit = data.resultado
+        var diaActual: number;
+        for (let i = 0; i < arrayInit.length; i++) {
+          const dia = arrayInit[i].dia
+          if(diaActual !== dia) {
+            const numberPush: number = arrayInit[i].importe
+            diaActual = arrayInit[i].dia
+            this.apiSemanal.push(numberPush)
+          } else {
+            const numberAdd = arrayInit[i].importe;
+            const arrayToAdd = this.apiSemanal.length - 1
+            this.apiSemanal[arrayToAdd] += numberAdd;
+          }
+        }
+        console.log(this.apiSemanal);
+        this.apiLeyendaSemanal = 'Total';
       });
     }
 
