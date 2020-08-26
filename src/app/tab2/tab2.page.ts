@@ -10,9 +10,14 @@ import {
   IngresoMensualInterface,
 } from "src/app/interfaces/resultados";
 
+
+import * as moment from 'moment';
+
+
 import { Chart } from "chart.js";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { map } from "rxjs/operators";
+import { format } from 'url';
 
 @Component({
   selector: "app-tab2",
@@ -24,12 +29,16 @@ export class Tab2Page {
   @ViewChild("BarChartMunicipales", { static: false }) BarChartMunicipales;
   @ViewChild("BarChartMensual", { static: false }) BarChartMensual;
   @ViewChild("BarChartAnual", { static: false }) BarChartAnual;
+  @ViewChild("BarChartSeleccionMensual", { static: false }) BarChartSeleccionMensual;
+
+
 
   BarsDiario: any;
   BarSemanal: any;
   BarsMensual: any;
   BarsAnual: any;
   BarsMunicipales: any;
+  BarsSeleccionMensual: any;
 
   colorArray: any;
 
@@ -38,6 +47,7 @@ export class Tab2Page {
   apiSemanal: any;
   apiSemestral: any;
   apiAnual: any;
+  apiDelMes: any;
 
   logos: any;
 
@@ -57,13 +67,11 @@ export class Tab2Page {
     "Diciembre",
   ];
   customDayShortNames = [
-    "Domingo",
     "lunes",
     "martes",
     "miercoles",
     "jueves",
     "viernes",
-    "sabado",
   ];
   customPickerOptions: any;
 
@@ -76,13 +84,24 @@ export class Tab2Page {
 
   apiIngresoMensual: any;
 
+  apiSeleccionMensualImporte: any;
+  apiSeleccionMensualLeyenda: any;
+  
+
+
   constructor(private http: HttpClient, public userService: UserService) {
     this.apiSemanal = [];
+
+    
+
     this.customPickerOptions = {
       buttons: [
         {
           text: "Save",
-          handler: () => console.log("Clicked Save!"),
+          handler: (time:any) => {
+            console.log('time', time);
+        }
+
         },
         {
           text: "Log",
@@ -99,6 +118,7 @@ export class Tab2Page {
     this.createBarChartSemanal();
     this.createBarChartMensual();
     this.createJurisdiccionMunicipal();
+    this.createBarChartSeleccionMensual();
   }
 
   ionViewWillEnter() {
@@ -107,7 +127,9 @@ export class Tab2Page {
     this.var_ingreso_mensual();
     this.var_ingreso_capital();
     this.var_ingreso_jurisdiccionMunicipal();
+    this.var_ingresodelMes(Date);
   }
+
 
   getLogo() {
     this.userService.getLogos().subscribe((response) => {
@@ -115,8 +137,9 @@ export class Tab2Page {
     });
   }
 
+  
   var_semanal() {
-    const my_url = URL_SERVIDOR + "/recaudacion-semanal/2020/5";
+    const my_url = URL_SERVIDOR + "/recaudacion-semanal/2019/35";
     var token = URL_TOKEN;
     const headers = {
       "content-type": "application/json",
@@ -176,6 +199,35 @@ export class Tab2Page {
     });
   }
 
+
+
+
+//--------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------
+ 
+   var_ingresodelMes(date) {
+    var mi_fecha = moment(date).format("M");  
+    const my_url = URL_SERVIDOR + "/recaudacion-mensual/2020/" + mi_fecha;
+    var token = URL_TOKEN;
+    const headers = {
+      "content-type": "application/json",
+      "x-token": token,
+    };
+     this.http.get<IngresoMensualInterface>(my_url, { headers: headers }).subscribe((data) => {
+      let apiDelImporteElegido = data.resultado.map(data => data.importe)
+      let apiDelLeyendaElegida = data.resultado.map(data => data.leyenda)
+      
+      this.apiSeleccionMensualImporte = apiDelImporteElegido;
+      this.apiSeleccionMensualLeyenda = apiDelLeyendaElegida;
+
+      this.createBarChartSeleccionMensual();
+    });
+  }
+
+  //--------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------
+
+
   var_ingreso_jurisdiccionMunicipal() {
     const my_url = URL_SERVIDOR + "/jur-municipal/2020/20200101/20200110";
     var token = URL_TOKEN;
@@ -197,7 +249,46 @@ export class Tab2Page {
         this.apiIngresoMunicipal = ingresoJurisdiccionMunicipal;
         this.apiLeyendaMunicipal = leyendaJurisdiccionMunicipal;
         this.createJurisdiccionMunicipal();
+
+
       });
+  }
+
+  createBarChartSeleccionMensual() {
+    const ctx = this.BarChartSeleccionMensual.nativeElement;
+    ctx.height = 400;
+    this.BarsSeleccionMensual = new Chart(ctx, {
+      type: "doughnut",
+      data: {
+        labels: this.apiSeleccionMensualLeyenda,
+        datasets: [
+          {
+            label: "# Miles de pesos",
+            data: this.apiSeleccionMensualImporte,
+            backgroundColor: [
+              "rgba(255, 99, 132, 0.2)",
+              "rgba(54, 162, 235, 0.2)",
+              "rgba(255, 206, 86, 0.2)",
+              "rgba(7, 35, 7, 0.2)",
+              "rgba(38, 2, 43, 0.2)",
+              "rgba(38, 2, 43, 0.2)",
+            ],
+            hoverBackgroundColor: [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#115912",
+              "#62056e",
+              "#22056e",
+            ],
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+      },
+    });
   }
 
   createBarChartSemanal() {
@@ -206,7 +297,7 @@ export class Tab2Page {
     this.BarSemanal = new Chart(ctx, {
       type: "bar",
       data: {
-        labels: ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"],
+        labels: this.customDayShortNames,
         datasets: [
           {
             label: this.apiLeyendaSemanal,

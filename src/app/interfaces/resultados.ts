@@ -44,6 +44,8 @@ export interface IngresoMensualInterface {
 }
 
 export interface IngresoMensualResultado {
-  '': number;
+  mes: number;
+  jerarquia: string;
+  leyenda: string;
   importe: number;
 }
