@@ -1,14 +1,14 @@
 <app-header></app-header>
 
 <ion-content>
-    <ion-card mode="ios" color="secondary">
-        <ion-card-header *ngFor="let logo of logos">
-            <img src={{logo.img}} />
-            <ion-card-title class="titulo">RECAUDACIÓN</ion-card-title>
-        </ion-card-header>
-    </ion-card>
+  <ion-card mode="ios" color="secondary">
+    <ion-card-header *ngFor="let logo of logos">
+      <img src="{{logo.img}}" />
+      <ion-card-title class="titulo">RECAUDACIÓN</ion-card-title>
+    </ion-card-header>
+  </ion-card>
 
-    <!--<ion-card mode="ios">
+  <!--<ion-card mode="ios">
         <ion-card-header>
             <ion-card-title>Informe Diario</ion-card-title>
         </ion-card-header>
@@ -24,37 +24,32 @@
         </ion-card-content>
     </ion-card>-->
 
-    <div class="ion-padding">
+  <div class="ion-padding">
+    <ion-card mode="ios" class="tarjetadeotras">
+      <ion-card-header>
+        <h5 class="titulo-cards">Ingreso de Jurisdicion Municipal</h5>
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #BarChartMunicipales></canvas>
+      </ion-card-content>
+    </ion-card>
 
-        <ion-card mode="ios" class="tarjetadeotras">
-            <ion-card-header>
-                <h5 class="titulo-cards">Ingreso de Jurisdicion Municipal</h5>
-            </ion-card-header>
-            <ion-card-content >
-                <canvas #BarChartMunicipales></canvas>
-            </ion-card-content>
-        </ion-card>
+    <ion-card mode="ios">
+      <ion-card-header>
+        <h5 class="titulo-cards">Recaudación Semanal</h5>
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #BarChartSemanal></canvas>
+      </ion-card-content>
+    </ion-card>
 
-
-        <ion-card mode="ios">
-            <ion-card-header>
-                <h5 class="titulo-cards">Recaudación Semanal</h5>
-            </ion-card-header>
-            <ion-card-content>
-                <canvas #BarChartSemanal></canvas>
-            </ion-card-content>
-        </ion-card>
-
-        <ion-card mode="ios">
-            <ion-card-header>
-               <h5 class="titulo-cards">Recaudacion Mensual</h5> 
-            </ion-card-header>
-            <ion-card-content>
-                <canvas #BarChartSemestral></canvas>
-            </ion-card-content>
-        </ion-card>
-
-
-    </div>
+    <ion-card mode="ios">
+      <ion-card-header>
+        <h5 class="titulo-cards">Recaudacion Mensual</h5>
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #BarChartMensual></canvas>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>
-
