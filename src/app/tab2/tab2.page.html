@@ -10,12 +10,12 @@
 
   <ion-card mode="ios">
         <ion-card-header>
-            <ion-card-title>Informe Diario</ion-card-title>
+            <ion-card-title>Ingreso por Mes</ion-card-title>
         </ion-card-header>
 
         <ion-item>
-            <ion-label>Selecciona Un Mes</ion-label>
-            <ion-datetime value="2020-04-14" min="1990-02" max="2021" [dayShortNames]="customDayShortNames" displayFormat="DD/MM/YYYY" [(ngModel)]="mydate" (ionChange)="var_ingresodelMes(this.mydate)" monthShortNames="jan, feb, mar, apr, mai, jun, jul, aug, sep, okt, nov, des"></ion-datetime>
+            <ion-label>Selecciona el mes</ion-label>
+            <ion-datetime value="2020-04-14" min="2019" max="2021" [dayShortNames]="customDayShortNames" displayFormat="MM/YYYY" [(ngModel)]="mydate" (ionChange)="var_ingresodelMes(this.mydate)"></ion-datetime>
         </ion-item>
         <ion-card-content>
           <canvas #BarChartSeleccionMensual></canvas>
