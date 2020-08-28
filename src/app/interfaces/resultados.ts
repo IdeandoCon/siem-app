@@ -49,3 +49,17 @@ export interface IngresoMensualResultado {
   leyenda: string;
   importe: number;
 }
+
+
+export interface ImportePorDia {
+  ok: boolean;
+  titulo: string;
+  resultado:ImportePorDiaResultado[];
+}
+
+export interface ImportePorDiaResultado {
+  dia: number;
+  jerarquia: string;
+  leyenda: string;
+  importe: number;
+}

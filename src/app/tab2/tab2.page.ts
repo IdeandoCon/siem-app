@@ -5,9 +5,11 @@ import { URL_TOKEN } from "src/app/config/config";
 import { URL_SERVIDOR } from "src/app/config/config";
 import {
   DataResultado,
+  ImportePorDia,
   Resultado,
   JurisdiccionMunicipal,
   IngresoMensualInterface,
+
 } from "src/app/interfaces/resultados";
 
 
@@ -30,6 +32,8 @@ export class Tab2Page {
   @ViewChild("BarChartMensual", { static: false }) BarChartMensual;
   @ViewChild("BarChartAnual", { static: false }) BarChartAnual;
   @ViewChild("BarChartSeleccionMensual", { static: false }) BarChartSeleccionMensual;
+  @ViewChild("BarChartSeleccionDiaria", { static: false }) BarChartSeleccionDiaria;
+
 
 
 
@@ -39,6 +43,7 @@ export class Tab2Page {
   BarsAnual: any;
   BarsMunicipales: any;
   BarsSeleccionMensual: any;
+  BarsSeleccionDiaria: any;
 
   colorArray: any;
 
@@ -48,6 +53,10 @@ export class Tab2Page {
   apiSemestral: any;
   apiAnual: any;
   apiDelMes: any;
+
+  apiImporteElegidadiaria: any;
+  apiLeyendaElegidaDiaria: any;
+
 
   logos: any;
 
@@ -91,9 +100,9 @@ export class Tab2Page {
 
   constructor(private http: HttpClient, public userService: UserService) {
     this.apiSemanal = [];
-
     
 
+  
     this.customPickerOptions = {
       buttons: [
         {
@@ -119,6 +128,7 @@ export class Tab2Page {
     this.createBarChartMensual();
     this.createJurisdiccionMunicipal();
     this.createBarChartSeleccionMensual();
+    this.createBarChartSeleccionDiario();
   }
 
   ionViewWillEnter() {
@@ -128,6 +138,7 @@ export class Tab2Page {
     this.var_ingreso_capital();
     this.var_ingreso_jurisdiccionMunicipal();
     this.var_ingresodelMes(Date);
+    this.var_ingreso_pordia(Date);
   }
 
 
@@ -199,11 +210,6 @@ export class Tab2Page {
     });
   }
 
-
-
-
-//--------------------------------------------------------------------------------
-//--------------------------------------------------------------------------------
  
    var_ingresodelMes(date) {
     var mi_fecha = moment(date).format("M");  
@@ -224,8 +230,78 @@ export class Tab2Page {
     });
   }
 
-  //--------------------------------------------------------------------------------
+
+
 //--------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------
+
+var_ingreso_pordia(myday) {
+  var weeknumber = moment(myday).week();
+  console.log(weeknumber);
+  const my_url = URL_SERVIDOR + "/recaudacion-semanal/2020/" + weeknumber;
+  console.log(my_url);
+  var token = URL_TOKEN;
+  const headers = {
+    "content-type": "application/json",
+    "x-token": token,
+  };
+  this.http.get<ImportePorDia>(my_url, { headers: headers }).subscribe((data) => {
+    let ArrayDelDia = data.resultado;
+    var DiaSeleccionado =  ArrayDelDia.reduce(function(h, obj) {
+      h[obj.dia] = (h[obj.dia] || []).concat(obj);
+      return h; 
+    }, {})
+    //Seleccion del dia en base al punto en objeto [2-6]
+    let LeyendaElegida = DiaSeleccionado[2].map(DiaSeleccionado => DiaSeleccionado.leyenda);
+    let ImporteElegida = DiaSeleccionado[2].map(DiaSeleccionado => DiaSeleccionado.importe)
+    this.apiLeyendaElegidaDiaria = LeyendaElegida;
+    this.apiImporteElegidadiaria = ImporteElegida;
+
+    this.createBarChartSeleccionDiario();
+  });
+}
+
+//--------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------
+
+
+createBarChartSeleccionDiario() {
+  const ctx = this.BarChartSeleccionDiaria.nativeElement;
+  ctx.height = 400;
+  this.BarsSeleccionDiaria = new Chart(ctx, {
+    type: "doughnut",
+    data: {
+      labels: this.apiLeyendaElegidaDiaria,
+      datasets: [
+        {
+          label: "# Miles de pesos",
+          data: this.apiImporteElegidadiaria,
+          backgroundColor: [
+            "rgba(255, 99, 132, 0.2)",
+            "rgba(54, 162, 235, 0.2)",
+            "rgba(255, 206, 86, 0.2)",
+            "rgba(7, 35, 7, 0.2)",
+            "rgba(38, 2, 43, 0.2)",
+            "rgba(38, 2, 43, 0.2)",
+          ],
+          hoverBackgroundColor: [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#115912",
+            "#62056e",
+            "#22056e",
+          ],
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+    },
+  });
+}
+
 
 
   var_ingreso_jurisdiccionMunicipal() {
