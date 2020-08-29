@@ -253,11 +253,11 @@ var_ingreso_pordia(myday) {
     }, {})
     //Seleccion del dia en base al punto en objeto [2-6]
     const date = moment(myday); // Thursday Feb 2015
-    this.apiDiaExacto = date.day();
+    this.apiDiaExacto = date.weekday() + 1;
      console.log(this.apiDiaExacto);
 
-    let LeyendaElegida = DiaSeleccionado[3].map(DiaSeleccionado => DiaSeleccionado.leyenda);
-    let ImporteElegida = DiaSeleccionado[3].map(DiaSeleccionado => DiaSeleccionado.importe)
+    let LeyendaElegida = DiaSeleccionado[this.apiDiaExacto].map(DiaSeleccionado => DiaSeleccionado.leyenda);
+    let ImporteElegida = DiaSeleccionado[this.apiDiaExacto].map(DiaSeleccionado => DiaSeleccionado.importe)
     this.apiLeyendaElegidaDiaria = LeyendaElegida;
     this.apiImporteElegidadiaria = ImporteElegida;
 
