@@ -50,6 +50,7 @@ export class Tab2Page {
   apiDiario: any;
   apiDiarioCategoria: any;
   apiSemanal: any;
+  apiDiaExacto: any;
   apiSemestral: any;
   apiAnual: any;
   apiDelMes: any;
@@ -100,9 +101,8 @@ export class Tab2Page {
 
   constructor(private http: HttpClient, public userService: UserService) {
     this.apiSemanal = [];
-    
+    this.apiDiaExacto = [];
 
-  
     this.customPickerOptions = {
       buttons: [
         {
@@ -252,8 +252,12 @@ var_ingreso_pordia(myday) {
       return h; 
     }, {})
     //Seleccion del dia en base al punto en objeto [2-6]
-    let LeyendaElegida = DiaSeleccionado[2].map(DiaSeleccionado => DiaSeleccionado.leyenda);
-    let ImporteElegida = DiaSeleccionado[2].map(DiaSeleccionado => DiaSeleccionado.importe)
+    const date = moment(myday); // Thursday Feb 2015
+    this.apiDiaExacto = date.day();
+     console.log(this.apiDiaExacto);
+
+    let LeyendaElegida = DiaSeleccionado[3].map(DiaSeleccionado => DiaSeleccionado.leyenda);
+    let ImporteElegida = DiaSeleccionado[3].map(DiaSeleccionado => DiaSeleccionado.importe)
     this.apiLeyendaElegidaDiaria = LeyendaElegida;
     this.apiImporteElegidadiaria = ImporteElegida;
 
