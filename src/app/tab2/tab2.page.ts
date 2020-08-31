@@ -1,6 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
 import { UserService } from "src/app/api/user.service";
-import { Observable } from "rxjs";
 import { URL_TOKEN } from "src/app/config/config";
 import { URL_SERVIDOR } from "src/app/config/config";
 import {
@@ -14,13 +13,8 @@ import {
 
 import { LoadingController } from '@ionic/angular'
 import * as moment from 'moment';
-
-
 import { Chart } from "chart.js";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { map } from "rxjs/operators";
-import { format } from 'url';
-import { async } from '@angular/core/testing';
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: "app-tab2",
@@ -35,9 +29,6 @@ export class Tab2Page {
   @ViewChild("BarChartSeleccionMensual", { static: false }) BarChartSeleccionMensual;
   @ViewChild("BarChartSeleccionDiaria", { static: false }) BarChartSeleccionDiaria;
 
-
-
-
   BarsDiario: any;
   BarSemanal: any;
   BarsMensual: any;
@@ -45,9 +36,7 @@ export class Tab2Page {
   BarsMunicipales: any;
   BarsSeleccionMensual: any;
   BarsSeleccionDiaria: any;
-
   colorArray: any;
-
   apiDiario: any;
   apiDiarioCategoria: any;
   apiSemanal: any;
@@ -55,13 +44,9 @@ export class Tab2Page {
   apiSemestral: any;
   apiAnual: any;
   apiDelMes: any;
-
   apiImporteElegidadiaria: any;
   apiLeyendaElegidaDiaria: any;
-
-
   logos: any;
-
   customYearValues = [2020, 2019, 2018, 2017, 2016, 2015];
   customMonthValues = [
     "Enero",
@@ -85,19 +70,14 @@ export class Tab2Page {
     "viernes",
   ];
   customPickerOptions: any;
-
   DataResultado: Resultado;
   apiLeyendaSemanal: any;
   apiDiaSemanal: number[];
-
   apiIngresoMunicipal: any;
   apiLeyendaMunicipal: any;
-
   apiIngresoMensual: any;
-
   apiSeleccionMensualImporte: any;
   apiSeleccionMensualLeyenda: any;
-
   isLoadingMensual = true;
   isLoadingDiario = true;
 
@@ -110,20 +90,35 @@ export class Tab2Page {
         {
           text: "Save",
           handler: (time:any) => {
-            //console.log('time', time);
         }
 
         },
         {
           text: "Log",
           handler: () => {
-            //console.log("Clicked Log. Do not Dismiss.");
             return false;
           },
         },
       ],
     };
   }
+
+  doRefresh(event) {
+    console.log('Begin async operation');
+    this.getLogo();
+    this.var_semanal(event);
+    this.var_ingreso_mensual();
+    this.var_ingreso_capital();
+    this.var_ingreso_jurisdiccionMunicipal();
+    this.var_ingresodelMes(Date).then( () => {} );
+    this.var_ingreso_pordia(Date);
+    
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000); 
+  }
+  
 
   ionViewDidEnter() {
     this.createBarChartSemanal();
@@ -135,7 +130,7 @@ export class Tab2Page {
 
   ionViewWillEnter() {
     this.getLogo();
-    this.var_semanal();
+    this.var_semanal(event);
     this.var_ingreso_mensual();
     this.var_ingreso_capital();
     this.var_ingreso_jurisdiccionMunicipal();
@@ -150,8 +145,10 @@ export class Tab2Page {
     });
   }
 
+
   
-  var_semanal() {
+  
+  var_semanal(event) {
     const my_url = URL_SERVIDOR + "/recaudacion-semanal/2019/35";
     var token = URL_TOKEN;
     const headers = {
@@ -176,8 +173,8 @@ export class Tab2Page {
             this.apiSemanal[arrayToAdd] += numberAdd;
           }
         }
-        //console.log(this.apiSemanal);
         this.apiLeyendaSemanal = "Total";
+        event.target.complete();
       });
   }
 
@@ -192,7 +189,6 @@ export class Tab2Page {
       .get<IngresoMensualInterface>(my_url, { headers: headers })
       .subscribe((data) => {
         let ingresoMensual = data["resultado"].map((data) => data.importe);
-        //console.log('Ingreso Mensual', ingresoMensual);
         this.apiIngresoMensual = ingresoMensual;
         this.createBarChartMensual();
       });
@@ -206,13 +202,11 @@ export class Tab2Page {
       "x-token": token,
     };
     this.http.get(my_url, { headers: headers }).subscribe((data) => {
-      //console.log('Ingreso capital', data);
       this.apiDiario = data;
       this.createBarChartSemanal();
     });
   }
 
- 
   async var_ingresodelMes(date) {
     var mi_fecha = moment(date).format("M");  
     const my_url = URL_SERVIDOR + "/recaudacion-mensual/2020/" + mi_fecha;
@@ -224,7 +218,6 @@ export class Tab2Page {
      this.http.get<IngresoMensualInterface>(my_url, { headers: headers }).subscribe((data) => {
       let apiDelImporteElegido = data.resultado.map(data => data.importe)
       let apiDelLeyendaElegida = data.resultado.map(data => data.leyenda)
-      
       this.apiSeleccionMensualImporte = apiDelImporteElegido;
       this.apiSeleccionMensualLeyenda = apiDelLeyendaElegida;
       this.createBarChartSeleccionMensual();
@@ -237,9 +230,7 @@ export class Tab2Page {
 
 var_ingreso_pordia(myday) {
   var weeknumber = moment(myday).week();
-  //console.log(weeknumber);
   const my_url = URL_SERVIDOR + "/recaudacion-semanal/2020/" + weeknumber;
-  //console.log(my_url);
   var token = URL_TOKEN;
   const headers = {
     "content-type": "application/json",
@@ -251,16 +242,12 @@ var_ingreso_pordia(myday) {
       h[obj.dia] = (h[obj.dia] || []).concat(obj);
       return h; 
     }, {})
-    //Seleccion del dia en base al punto en objeto [2-6]
-    const date = moment(myday); // Thursday Feb 2015
+    const date = moment(myday);
     this.apiDiaExacto = date.weekday() + 1;
-     //console.log(this.apiDiaExacto);
-
     let LeyendaElegida = DiaSeleccionado[this.apiDiaExacto].map(DiaSeleccionado => DiaSeleccionado.leyenda);
     let ImporteElegida = DiaSeleccionado[this.apiDiaExacto].map(DiaSeleccionado => DiaSeleccionado.importe)
     this.apiLeyendaElegidaDiaria = LeyendaElegida;
     this.apiImporteElegidadiaria = ImporteElegida;
-
     this.createBarChartSeleccionDiario();
     this.isLoadingDiario = false;
 
@@ -322,7 +309,6 @@ createBarChartSeleccionDiario() {
         let leyendaJurisdiccionMunicipal = data["resultado"].map(
           (data) => data.leyenda
         );
-        //console.log('Ingreso de Jurisdicion Municipal', data);
         this.apiIngresoMunicipal = ingresoJurisdiccionMunicipal;
         this.apiLeyendaMunicipal = leyendaJurisdiccionMunicipal;
         this.createJurisdiccionMunicipal();
