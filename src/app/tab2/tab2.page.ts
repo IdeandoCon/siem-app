@@ -10,6 +10,7 @@ import {
   IngresoMensualInterface,
 
 } from "src/app/interfaces/resultados";
+import { AlertController } from '@ionic/angular';
 
 import { LoadingController } from '@ionic/angular'
 import * as moment from 'moment';
@@ -81,7 +82,7 @@ export class Tab2Page {
   isLoadingMensual = true;
   isLoadingDiario = true;
 
-  constructor(private http: HttpClient, public userService: UserService, private loadingCtrl: LoadingController) {
+  constructor(private http: HttpClient, public userService: UserService, private loadingCtrl: LoadingController, public alertController: AlertController) {
     this.apiSemanal = [];
     this.apiDiaExacto = [];
 
@@ -103,7 +104,7 @@ export class Tab2Page {
     };
   }
 
-  doRefresh(event) {
+  async doRefresh(event) {
     console.log('Begin async operation');
     this.getLogo();
     this.var_semanal(event);
@@ -112,11 +113,20 @@ export class Tab2Page {
     this.var_ingreso_jurisdiccionMunicipal();
     this.var_ingresodelMes(Date).then( () => {} );
     this.var_ingreso_pordia(Date);
-    
+
     setTimeout(() => {
       console.log('Async operation has ended');
       event.target.complete();
     }, 2000); 
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Éxitos',
+      subHeader: '',
+      message: 'Los datos se recargarón con éxito.',
+      buttons: ['OK']
+    });
+    await alert.present();
+  
   }
   
 

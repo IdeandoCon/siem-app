@@ -4,7 +4,7 @@
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
       pullingIcon="chevron-down-circle-outline"
-      pullingText="Pull to refresh"
+      pullingText="Haz pull para recargar"
       refreshingSpinner="lines"
       refreshingText="Refrescando resultados...">
     </ion-refresher-content>
@@ -35,12 +35,16 @@
       <ion-label>Seleccionar dia</ion-label>
       <ion-datetime value="2020-01-01" min="2019" max="2021" [dayShortNames]="customDayShortNames" displayFormat="DD/MM/YYYY" [(ngModel)]="myday" (ionChange)="var_ingreso_pordia(this.myday)"></ion-datetime>
     </ion-item>
-    <div class="loading">
-      <h4 *ngIf="isLoadingDiario">Por favor indique la fecha</h4>
-      <ion-spinner name="lines" placeholder="Indique la fecha" *ngIf="isLoadingDiario"></ion-spinner>
-    </div>
     <ion-card-content>
-      <canvas #BarChartSeleccionDiaria></canvas>
+      <div>
+        <div class="loading">
+          <h4 *ngIf="isLoadingDiario">Por favor indique la fecha</h4>
+          <ion-spinner class="loading" name="lines" placeholder="Indique la fecha" *ngIf="isLoadingDiario"></ion-spinner>
+        </div>
+        <div>
+          <canvas #BarChartSeleccionDiaria></canvas>
+        </div>
+      </div>
     </ion-card-content>
   </ion-card>
 
