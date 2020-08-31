@@ -26,10 +26,15 @@
         <ion-label>Selecciona el mes</ion-label>
         <ion-datetime value="2020-01-01" min="2019" max="2021" [dayShortNames]="customDayShortNames" displayFormat="MM/YYYY" [(ngModel)]="mydate" (ionChange)="var_ingresodelMes(this.mydate)"></ion-datetime>
     </ion-item>
-      <ion-card-content>
-        
-        <canvas #BarChartSeleccionMensual></canvas>
+    <div class="loading">
+      <h4 *ngIf="isLoadingMensual">Por favor indique la fecha</h4>
+      <ion-spinner name="lines" placeholder="Indique la fecha" *ngIf="isLoadingMensual"></ion-spinner>
+    </div>
+      <ion-card-content>        
+        <canvas #BarChartSeleccionMensual>
+        </canvas>
       </ion-card-content>
+      
   </ion-card>
 
     <ion-card mode="ios">
@@ -57,10 +62,12 @@
       <ion-item>
         <ion-label>Selecciona dia</ion-label>
         <ion-datetime value="2020-01-01" min="2019" max="2021" [dayShortNames]="customDayShortNames" displayFormat="DD/MM/YYYY" [(ngModel)]="myday" (ionChange)="var_ingreso_pordia(this.myday)"></ion-datetime>
-
       </ion-item>
+      <div class="loading">
+        <h4 *ngIf="isLoadingDiario">Por favor indique la fecha</h4>
+        <ion-spinner name="lines" placeholder="Indique la fecha" *ngIf="isLoadingDiario"></ion-spinner>
+      </div>
       <ion-card-content>
-
         <canvas #BarChartSeleccionDiaria></canvas>
       </ion-card-content>
     </ion-card>

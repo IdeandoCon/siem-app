@@ -12,7 +12,7 @@ import {
 
 } from "src/app/interfaces/resultados";
 
-
+import { LoadingController } from '@ionic/angular'
 import * as moment from 'moment';
 
 
@@ -20,6 +20,7 @@ import { Chart } from "chart.js";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { map } from "rxjs/operators";
 import { format } from 'url';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: "app-tab2",
@@ -96,10 +97,11 @@ export class Tab2Page {
 
   apiSeleccionMensualImporte: any;
   apiSeleccionMensualLeyenda: any;
-  
 
+  isLoadingMensual = true;
+  isLoadingDiario = true;
 
-  constructor(private http: HttpClient, public userService: UserService) {
+  constructor(private http: HttpClient, public userService: UserService, private loadingCtrl: LoadingController) {
     this.apiSemanal = [];
     this.apiDiaExacto = [];
 
@@ -108,14 +110,14 @@ export class Tab2Page {
         {
           text: "Save",
           handler: (time:any) => {
-            console.log('time', time);
+            //console.log('time', time);
         }
 
         },
         {
           text: "Log",
           handler: () => {
-            console.log("Clicked Log. Do not Dismiss.");
+            //console.log("Clicked Log. Do not Dismiss.");
             return false;
           },
         },
@@ -137,7 +139,7 @@ export class Tab2Page {
     this.var_ingreso_mensual();
     this.var_ingreso_capital();
     this.var_ingreso_jurisdiccionMunicipal();
-    this.var_ingresodelMes(Date);
+    this.var_ingresodelMes(Date).then( () => {} );
     this.var_ingreso_pordia(Date);
   }
 
@@ -211,7 +213,7 @@ export class Tab2Page {
   }
 
  
-   var_ingresodelMes(date) {
+  async var_ingresodelMes(date) {
     var mi_fecha = moment(date).format("M");  
     const my_url = URL_SERVIDOR + "/recaudacion-mensual/2020/" + mi_fecha;
     var token = URL_TOKEN;
@@ -225,21 +227,19 @@ export class Tab2Page {
       
       this.apiSeleccionMensualImporte = apiDelImporteElegido;
       this.apiSeleccionMensualLeyenda = apiDelLeyendaElegida;
-
       this.createBarChartSeleccionMensual();
+      this.isLoadingMensual = false;
     });
+    
+    
   }
 
 
-
-//--------------------------------------------------------------------------------
-//--------------------------------------------------------------------------------
-
 var_ingreso_pordia(myday) {
   var weeknumber = moment(myday).week();
-  console.log(weeknumber);
+  //console.log(weeknumber);
   const my_url = URL_SERVIDOR + "/recaudacion-semanal/2020/" + weeknumber;
-  console.log(my_url);
+  //console.log(my_url);
   var token = URL_TOKEN;
   const headers = {
     "content-type": "application/json",
@@ -254,7 +254,7 @@ var_ingreso_pordia(myday) {
     //Seleccion del dia en base al punto en objeto [2-6]
     const date = moment(myday); // Thursday Feb 2015
     this.apiDiaExacto = date.weekday() + 1;
-     console.log(this.apiDiaExacto);
+     //console.log(this.apiDiaExacto);
 
     let LeyendaElegida = DiaSeleccionado[this.apiDiaExacto].map(DiaSeleccionado => DiaSeleccionado.leyenda);
     let ImporteElegida = DiaSeleccionado[this.apiDiaExacto].map(DiaSeleccionado => DiaSeleccionado.importe)
@@ -262,11 +262,10 @@ var_ingreso_pordia(myday) {
     this.apiImporteElegidadiaria = ImporteElegida;
 
     this.createBarChartSeleccionDiario();
+    this.isLoadingDiario = false;
+
   });
 }
-
-//--------------------------------------------------------------------------------
-//--------------------------------------------------------------------------------
 
 
 createBarChartSeleccionDiario() {
@@ -307,7 +306,6 @@ createBarChartSeleccionDiario() {
 }
 
 
-
   var_ingreso_jurisdiccionMunicipal() {
     const my_url = URL_SERVIDOR + "/jur-municipal/2020/20200101/20200110";
     var token = URL_TOKEN;
@@ -324,13 +322,10 @@ createBarChartSeleccionDiario() {
         let leyendaJurisdiccionMunicipal = data["resultado"].map(
           (data) => data.leyenda
         );
-
         //console.log('Ingreso de Jurisdicion Municipal', data);
         this.apiIngresoMunicipal = ingresoJurisdiccionMunicipal;
         this.apiLeyendaMunicipal = leyendaJurisdiccionMunicipal;
         this.createJurisdiccionMunicipal();
-
-
       });
   }
 
