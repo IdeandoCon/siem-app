@@ -129,7 +129,6 @@ export class Tab2Page {
   
   }
   
-
   ionViewDidEnter() {
     this.createBarChartSemanal();
     this.createBarChartMensual();
