@@ -2,23 +2,18 @@ import { NgModule } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { HeaderComponent } from './header/header.component';
 import { CommonModule } from '@angular/common';
-import { RecaudadoComponent } from './recaudado/recaudado.component';
-import { GastadoComponent } from  './gastado/gastado.component';
 
 
 
 
 
 @NgModule({
-  declarations: [GastadoComponent,
-    RecaudadoComponent,HeaderComponent],
+  declarations: [HeaderComponent],
   imports: [
     CommonModule,
     IonicModule
   ],
   exports: [
-    GastadoComponent,
-    RecaudadoComponent,
     HeaderComponent
   ]
 })
