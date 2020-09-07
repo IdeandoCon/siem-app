@@ -59,6 +59,7 @@ export class Tab3Page implements OnDestroy{
   BarsEgresoMensual:any;
   BarSemanal: any;
   BarEgresoSemanal:any;
+  apiEgresoMensual:any;
 
 
 
@@ -398,8 +399,8 @@ createBarChartEgresoMensual() {
       labels: this.apiSemestral && this.apiSemestral.labels ,
       datasets: [
         {
-          data: this.apiIngresoMensual,
-          label: "Ingreso Municipal Mensual",
+          data: this.apiEgresoMensual,
+          label: "Egreso Municipal Mensual",
           fill: false,
           lineTension: 0.1,
           backgroundColor: "rgba(54, 161, 235,0.4)",
