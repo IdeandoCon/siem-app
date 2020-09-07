@@ -5,6 +5,8 @@ import { URL_SERVIDOR } from 'src/app/config/config'
 import {DataResultado, Resultado, OtrasJurisdicciones, JurisdiccionMunicipal  } from 'src/app/interfaces/resultados'
 import { Chart } from 'chart.js';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { LoadingController } from '@ionic/angular'
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
@@ -24,7 +26,7 @@ export class Tab1Page {
   apiIngresoMunicipalOtras:any;
   apiLeyendaMunicipalOtras:any;
 
-  constructor(public userService: UserService,private http: HttpClient ) {
+  constructor(public alertController: AlertController,public userService: UserService,private http: HttpClient ) {
     this.customPickerOptions = {
       buttons: [{
         text: 'Save',
@@ -39,17 +41,30 @@ export class Tab1Page {
     };
   }
 
+  async doRefresh(event) {
+    this.getLogo();
+    this.getLogo();
+    this.createOtrasJurisdicciones();
+    this.var_ingreso_otrasJurisdicciones(event);
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Éxitos',
+      subHeader: '',
+      message: 'Los datos se recargarón con éxito.',
+      buttons: ['OK']
+    });
+    await alert.present();
+  
+  }
+
   ionViewWillEnter() {
     this.getLogo();
     this.createOtrasJurisdicciones();
-    this.var_ingreso_otrasJurisdicciones();
+    this.var_ingreso_otrasJurisdicciones(event);
   }
 
- 
-
-
   
-  var_ingreso_otrasJurisdicciones() {
+  var_ingreso_otrasJurisdicciones(event) {
     const my_url = URL_SERVIDOR + '/otras-jur/2020/20200101/20200131'; 
     var token = URL_TOKEN;
     const headers = { 
@@ -59,14 +74,10 @@ export class Tab1Page {
     this.http.get<OtrasJurisdicciones>(my_url , {headers: headers}).subscribe(data => {
       let ingresoMunicipal = data['resultado'].map(data => data.importe);
       let leyendaMunicipal = data['resultado'].map(data => data.leyenda);
-
-      console.log('Ingreso de Otras Jurisdiciones', data);
-
       this.apiIngresoMunicipalOtras = ingresoMunicipal;
       this.apiLeyendaMunicipalOtras = leyendaMunicipal;
       this.createOtrasJurisdicciones();
-
-      console.log(this.apiIngresoMunicipalOtras)
+      event.target.complete();
     });
   }
 

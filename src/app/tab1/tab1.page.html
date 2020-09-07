@@ -1,6 +1,17 @@
 <app-header></app-header>
 
 <ion-content>
+    <ion-content>
+        <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+          <ion-refresher-content
+            pullingIcon="chevron-down-circle-outline"
+            pullingText="Haz pull para recargar"
+            refreshingSpinner="lines"
+            refreshingText="Refrescando resultados...">
+          </ion-refresher-content>
+        </ion-refresher>
+
+        
     <ion-card mode="ios" color="secondary">
         <ion-card-header *ngFor="let logo of logos">
             <img src={{logo.img}} />

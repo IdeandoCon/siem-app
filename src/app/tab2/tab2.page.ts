@@ -113,11 +113,6 @@ export class Tab2Page {
     this.var_ingreso_jurisdiccionMunicipal();
     this.var_ingresodelMes(Date).then( () => {} );
     this.var_ingreso_pordia(Date);
-
-    setTimeout(() => {
-      console.log('Async operation has ended');
-      event.target.complete();
-    }, 2000); 
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Éxitos',

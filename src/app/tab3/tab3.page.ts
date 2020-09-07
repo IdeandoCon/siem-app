@@ -1,8 +1,20 @@
 import { Component, ViewChild } from '@angular/core';
 import { UserService } from 'src/app/api/user.service';
-
+import { URL_TOKEN } from "src/app/config/config";
+import { URL_SERVIDOR } from "src/app/config/config";
+import { LoadingController } from '@ionic/angular'
+import * as moment from 'moment';
 import { Chart } from "chart.js";
 import { HttpClient } from "@angular/common/http";
+import {
+  DataResultado,
+  ImportePorDia,
+  Resultado,
+  JurisdiccionMunicipal,
+  IngresoMensualInterface,
+
+} from "src/app/interfaces/resultados";
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: "app-tab3",
@@ -10,10 +22,25 @@ import { HttpClient } from "@angular/common/http";
   styleUrls: ["tab3.page.scss"]
 })
 export class Tab3Page {
-  @ViewChild('BarChartSemanal', {static: false}) BarChartSemanal;
+  @ViewChild("BarChartSemanal", { static: false }) BarChartSemanal;
   @ViewChild('BarChartSemestral', {static: false}) BarChartSemestral;
   @ViewChild('BarChartAnual', {static: false}) BarChartAnual;
-  @ViewChild('BarChartDiarioCategorias', {static: false}) BarChartDiarioCategorias;
+
+    //Nuevos 
+  @ViewChild("BarChartSeleccionMensual", { static: false }) BarChartSeleccionMensual;
+  @ViewChild("BarChartEgresoMensual", { static: false }) BarChartEgresoMensual;
+  @ViewChild('BarChartEgresoSemanal', {static: false}) BarChartEgresoSemanal;
+
+
+  //Bars Nuevos
+  BarsMensual: any;
+  BarsSeleccionMensual: any;
+  BarsEgresoMensual:any;
+  BarSemanal: any;
+  BarEgresoSemanal:any;
+
+
+
 
   BarsDiario:any;
   BarsDiarioCat:any;
@@ -28,26 +55,84 @@ export class Tab3Page {
   apiDiarioCategoria:any;
 
   logos: any;
-  constructor(private http:HttpClient, public userService: UserService) {}
 
+  isLoadingMensual = true;
+  isLoadingDiario = true;
 
+  apiSeleccionMensualImporte: any;
+  apiSeleccionMensualLeyenda: any;
+
+  apiIngresoMunicipal: any;
+  apiLeyendaMunicipal: any;
+  apiLeyendaSemanal: any;
+  apiDiaSemanal: number[];
+  apiSemanal: any;
+  apiLeyendaEgresoSemanal:any;
+  apiEgresoSemanal:any;
+
+  customYearValues = [2020, 2019, 2018, 2017, 2016, 2015];
+  customMonthValues = [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
+  ];
+  customDayShortNames = [
+    "lunes",
+    "martes",
+    "miercoles",
+    "jueves",
+    "viernes",
+  ];
+
+  constructor(private http:HttpClient, public userService: UserService,private loadingCtrl: LoadingController, public alertController: AlertController) {}
+
+  async doRefresh(event) {
+    console.log('Begin async operation');
+    this.getLogo();
+    this.var_ingresodelMes(Date).then( () => {} );
+    this.var_semanal(event);
+    this.var_EgrsosdelMesCapital(Date)
+    this.var_EgresoSemanal();
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000); 
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Éxitos',
+      subHeader: '',
+      message: 'Los datos se recargarón con éxito.',
+      buttons: ['OK']
+    });
+    await alert.present();
+  
+  }
 
   ionViewDidEnter() {
-   
     this.createBarChartSemanal()
     this.createBarChartSemestral()
-    this.createDiarioCategorias()
-    
+    this.createBarChartEgresoSemanal()
+    this.createBarChartSeleccionMensual()
+    this.createBarChartEgresoMensual()
   }
   
 
   ionViewWillEnter(){
     this.getLogo();
-
-    this.gasto_anual()
-    this.gasto_diarioCategorias()
-    this.gasto_semanal()
-    this.gasto_semestral()
+    this.var_ingresodelMes(Date).then( () => {} );
+    this.var_semanal(event);
+    this.var_EgrsosdelMesCapital(Date)
+    this.var_EgresoSemanal();
   }
 
   getLogo() {
@@ -58,112 +143,254 @@ export class Tab3Page {
     });
   }
   
-    gasto_semanal() {
-      const my_url = 'http://138.68.54.214:8080/gastoSemanal.json'
-      this.http.get(my_url).subscribe(data => {
-        console.log(data);
-        this.apiDiario = data;
-        this.createBarChartSemanal();
-      })
-    }
   
-    gasto_diarioCategorias(){
-      const my_url = 'http://138.68.54.214:8080/gastoCategoria.json'
-      this.http.get(my_url).subscribe(data => {
-        console.log(data);
-        this.apiDiarioCategoria = data;
-        this.createDiarioCategorias();
-      })
-    }
-  
-    gasto_semestral(){
-      const my_url = 'http://138.68.54.214:8080/gastoSemestral.json'
-      this.http.get(my_url).subscribe(data => {
-        console.log(data);
-        this.apiSemestral = data;
-        this.createBarChartSemestral();
-      })
-    }
-  
-    gasto_anual(){
-      const my_url = ''
-      this.http.get(my_url).subscribe(data => {
-        console.log(data);
-        this.apiDiarioCategoria = data;
-        //this.createBarChartAnual();
-      })
-    }
-
-  
+//---------------------------------------------------------------------
 
 
+async var_ingresodelMes(date) {
+  var mi_fecha = moment(date).format("M"); 
+  const my_url = URL_SERVIDOR + "/gastos-corrientes-mensual/2020/" + mi_fecha;
+  var token = URL_TOKEN;
+  const headers = {
+    "content-type": "application/json",
+    "x-token": token,
+  };
+   this.http.get<IngresoMensualInterface>(my_url, { headers: headers }).subscribe((data) => {
+    let apiDelImporteElegido = data.resultado.map(data => data.importe)
+    let apiDelLeyendaElegida = data.resultado.map(data => data.leyenda)
+    this.apiSeleccionMensualImporte = apiDelImporteElegido;
+    this.apiSeleccionMensualLeyenda = apiDelLeyendaElegida;
+    this.createBarChartSeleccionMensual();
+    this.isLoadingMensual = false;
+    console.log(apiDelImporteElegido);
+  });
+  
+  
+}
 
-  createBarChartSemanal() {
-    let ctx = this.BarChartSemanal.nativeElement
-    ctx.height = 400;
-    this.BarsDiario = new Chart(ctx,{
+var_semanal(event) {
+  const my_url = URL_SERVIDOR + "/gastos-corrientes-semanal/2019/35";
+  var token = URL_TOKEN;
+  const headers = {
+    "content-type": "application/json",
+    "x-token": token,
+  };
+  this.http
+    .get<DataResultado>(my_url, { headers: headers })
+    .subscribe((data) => {
+      this.apiSemanal = data['resultado'].map(data => data.importe);
+      this.apiLeyendaSemanal = "Total";
+      this.createBarChartSemanal();
+      event.target.complete();
+      this.isLoadingMensual = false;
+
+    });
+}
+
+
+async var_EgrsosdelMesCapital(date) {
+  var mi_fecha = moment(date).format("M");  
+  const my_url = URL_SERVIDOR + "/gastos-capital-mensual/2020/" + mi_fecha;
+  var token = URL_TOKEN;
+  const headers = {
+    "content-type": "application/json",
+    "x-token": token,
+  };
+   this.http.get<IngresoMensualInterface>(my_url, { headers: headers }).subscribe((data) => {
+    let apiDelImporteElegido = data.resultado.map(data => data.importe)
+    let apiDelLeyendaElegida = data.resultado.map(data => data.leyenda)
+    this.apiSeleccionMensualImporte = apiDelImporteElegido;
+    this.apiSeleccionMensualLeyenda = apiDelLeyendaElegida;
+    this.createBarChartEgresoMensual();
+    this.isLoadingMensual = false;
+  });
+  
+  
+}
+
+
+
+var_EgresoSemanal() {
+  const my_url = URL_SERVIDOR + "/gastos-capital-semanal/2020/5";
+  var token = URL_TOKEN;
+  const headers = {
+    "content-type": "application/json",
+    "x-token": token,
+  };
+  this.http
+    .get<DataResultado>(my_url, { headers: headers })
+    .subscribe((data) => {
+      this.apiEgresoSemanal = data['resultado'].map(data => data.importe);
+      this.apiLeyendaEgresoSemanal = "Total";
+      this.isLoadingMensual = false;
+      this.createBarChartEgresoSemanal()
+    });
+}
+//---------------------------------------------------------------------
+
+
+
+createBarChartSemanal() {
+  const ctx = this.BarChartSemanal.nativeElement;
+  ctx.height = 400;
+  this.BarSemanal = new Chart(ctx, {
     type: "bar",
     data: {
-      labels: this.apiDiario && this.apiDiario.labels,
+      labels: this.customDayShortNames,
       datasets: [
         {
-          label: "Miles de pesos",
-          data: this.apiDiario && this.apiDiario.values,
+          label: this.apiLeyendaSemanal,
+          data: this.apiSemanal,
           backgroundColor: [
-            "rgba(255, 99, 132, 0.2)",
-            "rgba(54, 162, 235, 0.2)",
-            "rgba(255, 206, 86, 0.2)",
-            "rgba(75, 192, 192, 0.2)",
-            "rgba(153, 102, 255, 0.2)"
+            "rgba(192, 2, 87, 0.2)",
+            "rgba(1, 60, 131, 0.2)",
+            "rgba(253, 79, 48, 0.2)",
+            "rgba(1, 90, 96, 0.2)",
+            "rgba(31, 86, 1, 0.2)",
           ],
           borderColor: [
-            "rgba(255,99,132,1)",
-            "rgba(54, 162, 235, 1)",
+            "rgba(192, 2, 87,1)",
+            "rgba(1, 60, 131, 1)",
             "rgba(255, 206, 86, 1)",
-            "rgba(75, 192, 192, 1)",
-            "rgba(153, 102, 255, 1)"
+            "rgba(1, 90, 96,  1)",
+            "rgba(31, 86, 1, 1)",
           ],
-          borderWidth: 1
-        }
-      ]
+          borderWidth: 1,
+        },
+      ],
     },
     options: {
       scales: {
         yAxes: [
           {
             ticks: {
-              beginAtZero: true
-            }
-          }
-        ]
-      }
-    }
-  })
+              beginAtZero: true,
+            },
+          },
+        ],
+      },
+    },
+  });
 }
 
-  
+createBarChartEgresoSemanal() {
+  const ctx = this.BarChartEgresoSemanal.nativeElement;
+  ctx.height = 400;
+  this.BarEgresoSemanal = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: this.customDayShortNames,
+      datasets: [
+        {
+          label: this.apiLeyendaEgresoSemanal,
+          data: this.apiEgresoSemanal,
+          backgroundColor: [
+            "rgba(192, 2, 87, 0.2)",
+            "rgba(1, 60, 131, 0.2)",
+            "rgba(253, 79, 48, 0.2)",
+            "rgba(1, 90, 96, 0.2)",
+            "rgba(31, 86, 1, 0.2)",
+          ],
+          borderColor: [
+            "rgba(192, 2, 87,1)",
+            "rgba(1, 60, 131, 1)",
+            "rgba(255, 206, 86, 1)",
+            "rgba(1, 90, 96,  1)",
+            "rgba(31, 86, 1, 1)",
+          ],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true,
+            },
+          },
+        ],
+      },
+    },
+  });
+}
 
-  createDiarioCategorias() {
-    let ctx = this.BarChartDiarioCategorias.nativeElement
-    ctx.height = 400;
-    this.BarsDiarioCat = new Chart(ctx,{
+createBarChartSeleccionMensual() {
+  const ctx = this.BarChartSeleccionMensual.nativeElement;
+  ctx.height = 400;
+  this.BarsSeleccionMensual = new Chart(ctx, {
     type: "doughnut",
     data: {
-      labels:  this.apiDiarioCategoria && this.apiDiarioCategoria.labels,
+      labels: this.apiSeleccionMensualLeyenda,
       datasets: [
         {
           label: "# Miles de pesos",
-          data: this.apiDiarioCategoria && this.apiDiarioCategoria.values,
+          data: this.apiSeleccionMensualImporte,
           backgroundColor: [
             "rgba(255, 99, 132, 0.2)",
             "rgba(54, 162, 235, 0.2)",
-            "rgba(255, 206, 86, 0.2)"
+            "rgba(255, 206, 86, 0.2)",
+            "rgba(7, 35, 7, 0.2)",
+            "rgba(38, 2, 43, 0.2)",
+            "rgba(38, 2, 43, 0.2)",
           ],
-          hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
-        }
-      ]
-    }
-  })}
+          hoverBackgroundColor: [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#115912",
+            "#62056e",
+            "#22056e",
+          ],
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+    },
+  });
+}
+
+createBarChartEgresoMensual() {
+  const ctx = this.BarChartEgresoMensual.nativeElement;
+  ctx.height = 400;
+  this.BarsEgresoMensual = new Chart(ctx, {
+    type: "doughnut",
+    data: {
+      labels: this.apiSeleccionMensualLeyenda,
+      datasets: [
+        {
+          label: "# Miles de pesos",
+          data: this.apiSeleccionMensualImporte,
+          backgroundColor: [
+            "rgba(255, 99, 132, 0.2)",
+            "rgba(54, 162, 235, 0.2)",
+            "rgba(255, 206, 86, 0.2)",
+            "rgba(7, 35, 7, 0.2)",
+            "rgba(38, 2, 43, 0.2)",
+            "rgba(38, 2, 43, 0.2)",
+          ],
+          hoverBackgroundColor: [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#115912",
+            "#62056e",
+            "#22056e",
+          ],
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+    },
+  });
+}
+
+  
 
   createBarChartSemestral() {
     let ctx = this.BarChartSemestral.nativeElement
