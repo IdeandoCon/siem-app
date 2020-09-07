@@ -56,7 +56,7 @@ export class Tab1Page implements OnDestroy {
       cssClass: 'my-custom-class',
       header: 'Éxitos',
       subHeader: '',
-      message: 'Los datos se recargarón con éxito.',
+      message: 'Los datos se recargaron con éxito.',
       buttons: ['OK']
     });
     await alert.present();
