@@ -100,11 +100,11 @@ export class Tab1Page implements OnDestroy {
           label: '# Miles de pesos',
           data: this.apiIngresoMunicipalOtras,
           backgroundColor: [
-            'rgba(255, 99, 132, 0.3)',
-            'rgba(54, 162, 235, 0.3)',
-            'rgba(253, 79, 48, 0.3)',
-            'rgba(7, 35, 7, 0.3)',
-            'rgba(38, 2, 43, 0.3)'
+            'rgba(255, 99, 133, 0.3)',
+            'rgba(54, 161, 235, 0.3)',
+            'rgba(252, 79, 48, 0.3)',
+            'rgba(5, 140, 107, 0.3)',
+            'rgba(74, 3, 82, 0.3)'
           ],
           hoverBackgroundColor: ['#FF6384', '#36A2EB', '#fd4f30', '#115912', '#62056e']
         }
