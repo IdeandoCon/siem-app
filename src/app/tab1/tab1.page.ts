@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from 'src/app/api/user.service';
 import { URL_TOKEN } from 'src/app/config/config'
 import { URL_SERVIDOR } from 'src/app/config/config'
@@ -13,7 +13,7 @@ import { AlertController } from '@ionic/angular';
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page {
+export class Tab1Page implements OnDestroy {
   @ViewChild('BarsChartOtrasJurisdicciones', {static: false}) BarsChartOtrasJurisdicciones;
   BarsOtrasJurisdicciones: any;
 
@@ -25,6 +25,12 @@ export class Tab1Page {
 
   apiIngresoMunicipalOtras:any;
   apiLeyendaMunicipalOtras:any;
+
+  ngOnDestroy(){
+    this.getLogo();
+    this.createOtrasJurisdicciones();
+    this.var_ingreso_otrasJurisdicciones(event);
+  }
 
   constructor(public alertController: AlertController,public userService: UserService,private http: HttpClient ) {
     this.customPickerOptions = {

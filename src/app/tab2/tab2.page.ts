@@ -1,4 +1,4 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, ViewChild, OnDestroy } from "@angular/core";
 import { UserService } from "src/app/api/user.service";
 import { URL_TOKEN } from "src/app/config/config";
 import { URL_SERVIDOR } from "src/app/config/config";
@@ -22,7 +22,26 @@ import { HttpClient } from "@angular/common/http";
   templateUrl: "tab2.page.html",
   styleUrls: ["tab2.page.scss"],
 })
-export class Tab2Page {
+export class Tab2Page implements OnDestroy {
+
+
+  ngOnDestroy(){
+    this.getLogo();
+    this.var_semanal(event);
+    this.var_ingreso_mensual();
+    this.var_ingreso_capital();
+    this.var_ingreso_jurisdiccionMunicipal();
+    this.var_ingresodelMes(Date).then( () => {} );
+    this.var_ingreso_pordia(Date);
+
+    this.createBarChartSemanal();
+    this.createBarChartMensual();
+    this.createJurisdiccionMunicipal();
+    this.createBarChartSeleccionMensual();
+    this.createBarChartSeleccionDiario();
+  }
+
+
   @ViewChild("BarChartSemanal", { static: false }) BarChartSemanal;
   @ViewChild("BarChartMunicipales", { static: false }) BarChartMunicipales;
   @ViewChild("BarChartMensual", { static: false }) BarChartMensual;
@@ -152,14 +171,14 @@ export class Tab2Page {
 
   
   
-  var_semanal(event) {
+  async var_semanal(event) {
     const my_url = URL_SERVIDOR + "/recaudacion-semanal/2019/35";
     var token = URL_TOKEN;
     const headers = {
       "content-type": "application/json",
       "x-token": token,
     };
-    this.http
+    await this.http
       .get<DataResultado>(my_url, { headers: headers })
       .subscribe((data) => {
         this.apiSemanal = [];
@@ -182,14 +201,14 @@ export class Tab2Page {
       });
   }
 
-  var_ingreso_mensual() {
+ async var_ingreso_mensual() {
     const my_url = URL_SERVIDOR + "/recaudacion-mensual/2019";
     var token = URL_TOKEN;
     const headers = {
       "content-type": "application/json",
       "x-token": token,
     };
-    this.http
+    await this.http
       .get<IngresoMensualInterface>(my_url, { headers: headers })
       .subscribe((data) => {
         let ingresoMensual = data["resultado"].map((data) => data.importe);
@@ -198,14 +217,14 @@ export class Tab2Page {
       });
   }
 
-  var_ingreso_capital() {
+  async var_ingreso_capital() {
     const my_url = URL_SERVIDOR + "/ingreso-capital/2020/200101/200131";
     var token = URL_TOKEN;
     const headers = {
       "content-type": "application/json",
       "x-token": token,
     };
-    this.http.get(my_url, { headers: headers }).subscribe((data) => {
+   await this.http.get(my_url, { headers: headers }).subscribe((data) => {
       this.apiDiario = data;
       this.createBarChartSemanal();
     });
@@ -232,7 +251,7 @@ export class Tab2Page {
   }
 
 
-var_ingreso_pordia(myday) {
+async var_ingreso_pordia(myday) {
   var weeknumber = moment(myday).week();
   const my_url = URL_SERVIDOR + "/recaudacion-semanal/2020/" + weeknumber;
   var token = URL_TOKEN;
@@ -240,7 +259,7 @@ var_ingreso_pordia(myday) {
     "content-type": "application/json",
     "x-token": token,
   };
-  this.http.get<ImportePorDia>(my_url, { headers: headers }).subscribe((data) => {
+ await this.http.get<ImportePorDia>(my_url, { headers: headers }).subscribe((data) => {
     let ArrayDelDia = data.resultado;
     var DiaSeleccionado =  ArrayDelDia.reduce(function(h, obj) {
       h[obj.dia] = (h[obj.dia] || []).concat(obj);
@@ -297,14 +316,14 @@ createBarChartSeleccionDiario() {
 }
 
 
-  var_ingreso_jurisdiccionMunicipal() {
+ async var_ingreso_jurisdiccionMunicipal() {
     const my_url = URL_SERVIDOR + "/jur-municipal/2020/20200101/20200110";
     var token = URL_TOKEN;
     const headers = {
       "content-type": "application/json",
       "x-token": token,
     };
-    this.http
+   await this.http
       .get<JurisdiccionMunicipal>(my_url, { headers: headers })
       .subscribe((data) => {
         let ingresoJurisdiccionMunicipal = data["resultado"].map(

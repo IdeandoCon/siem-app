@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnDestroy } from '@angular/core';
 import { UserService } from 'src/app/api/user.service';
 import { URL_TOKEN } from "src/app/config/config";
 import { URL_SERVIDOR } from "src/app/config/config";
@@ -21,7 +21,25 @@ import { AlertController } from '@ionic/angular';
   templateUrl: "tab3.page.html",
   styleUrls: ["tab3.page.scss"]
 })
-export class Tab3Page {
+export class Tab3Page implements OnDestroy{
+
+
+
+  ngOnDestroy(){
+    this.createBarChartSemanal()
+    this.createBarChartSemestral()
+    this.createBarChartEgresoSemanal()
+    this.createBarChartSeleccionMensual()
+    this.createBarChartEgresoMensual()
+    
+    this.getLogo();
+    this.var_ingresodelMes(Date).then( () => {} );
+    this.var_semanal(event);
+    this.var_EgrsosdelMesCapital(Date)
+    this.var_EgresoSemanal();
+  }
+
+
   @ViewChild("BarChartSemanal", { static: false }) BarChartSemanal;
   @ViewChild('BarChartSemestral', {static: false}) BarChartSemestral;
   @ViewChild('BarChartAnual', {static: false}) BarChartAnual;
@@ -30,6 +48,9 @@ export class Tab3Page {
   @ViewChild("BarChartSeleccionMensual", { static: false }) BarChartSeleccionMensual;
   @ViewChild("BarChartEgresoMensual", { static: false }) BarChartEgresoMensual;
   @ViewChild('BarChartEgresoSemanal', {static: false}) BarChartEgresoSemanal;
+
+
+
 
 
   //Bars Nuevos
