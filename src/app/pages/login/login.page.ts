@@ -60,8 +60,8 @@ export class LoginPage {
 
 
   login() {
-    const user = { email: this.email, password: this.password };
-    this.userService.login(user).subscribe(data => {
+    const usuario = { email: this.email, password: this.password };
+    this.userService.login(usuario).subscribe(data => {
       this.userService.setToken(data.token);
       this.router.navigateByUrl('/tabs');
     });
