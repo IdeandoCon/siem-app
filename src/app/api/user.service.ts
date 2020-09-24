@@ -7,20 +7,33 @@ import { retry, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class UserService {
-//Hola
   base_path = 'https://vigorous-chandrasekhar-2ee519.netlify.app';
+  municipalidad:any;
 
   constructor(private http: HttpClient, private cookies: CookieService) { }
 
-  login(usuario: any): Observable<any> {
+
+
+  login(usuario: any, municipalidad:any): Observable<any> {
     return this.http.post("http://localhost:3000/login", usuario);
   }
+
+
+  setMunicipalidad(municipalidad: string) {
+    this.cookies.set("municipalidad", municipalidad);
+  }
+  getMunicipalidad() {
+    return this.cookies.get("municipalidad");
+  }
+
   setToken(token: string) {
     this.cookies.set("token", token);
   }
   getToken() {
     return this.cookies.get("token");
   }
+
+
 
   httpOptions = {
     headers: new HttpHeaders({

@@ -3,6 +3,7 @@ import { Storage } from '@ionic/storage';
 import { UserService } from "../../api/user.service";
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { async } from '@angular/core/testing';
 
 
 @Component({
@@ -14,6 +15,8 @@ export class LoginPage {
 
   email: string;
   password: string;
+  municipalidad: any;
+
 
   slideOpts = {
     effect: 'fade',
@@ -59,12 +62,14 @@ export class LoginPage {
   }
 
 
-  login() {
+  async login() {
     const usuario = { email: this.email, password: this.password, role: 'INTENDENTE_ROLE' };
-    this.userService.login(usuario).subscribe(data => {
+    await this.userService.login(usuario).subscribe(data => {
       this.userService.setToken(data.token);
+      this.userService.setMunicipalidad(data.municipalidad);
+      console.log(data.municipalidad);
       this.router.navigateByUrl('/tabs');
-    });
+    })
   }
 
 

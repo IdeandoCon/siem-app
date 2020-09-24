@@ -69,14 +69,13 @@ export class Tab1Page implements OnDestroy {
     this.var_ingreso_otrasJurisdicciones(event);
   }
 
-  
   var_ingreso_otrasJurisdicciones(event) {
-    const my_url = URL_SERVIDOR + '/otras-jur/2020/20200101/20200131'; 
+    const my_url = URL_SERVIDOR + '/otras-jur/2020/20200101/20200131';
     var token = URL_TOKEN;
-    const headers = { 
+    const headers = {
       'content-type': 'application/json',
       'x-token': token
-    }  
+    }
     this.http.get<OtrasJurisdicciones>(my_url , {headers: headers}).subscribe(data => {
       let ingresoMunicipal = data['resultado'].map(data => data.importe);
       let leyendaMunicipal = data['resultado'].map(data => data.leyenda);
