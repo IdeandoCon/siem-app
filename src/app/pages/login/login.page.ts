@@ -4,8 +4,11 @@ import { UserService } from "../../api/user.service";
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { async } from '@angular/core/testing';
-
-
+import { URL_TOKEN } from 'src/app/config/config'
+import { URL_SERVIDOR } from 'src/app/config/config'
+import { HttpClient } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
+import { Login } from 'src/app/interfaces/resultados';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -15,7 +18,7 @@ export class LoginPage {
 
   email: string;
   password: string;
-  municipalidad: any;
+  municipalidad: string;
 
 
   slideOpts = {
@@ -56,20 +59,40 @@ export class LoginPage {
     }
   ];
 
-  constructor(public userService: UserService, public router: Router, private navCtrl: NavController) {
+  constructor(public userService: UserService,private cookies: CookieService, public router: Router, private navCtrl: NavController, private http: HttpClient) {
 
 
   }
 
 
-  async login() {
+  async login1() {
     const usuario = { email: this.email, password: this.password, role: 'INTENDENTE_ROLE' };
     await this.userService.login(usuario).subscribe(data => {
+      let municipalidad = this.userService.setMunicipalidad(data.id);
       this.userService.setToken(data.token);
-      this.userService.setMunicipalidad(data.municipalidad);
-      console.log(data.municipalidad);
+      console.log(municipalidad)
       this.router.navigateByUrl('/tabs');
     })
+  }
+
+
+  setToken(token: string) {
+    this.cookies.set("token", token);
+  }
+  getToken() {
+    return this.cookies.get("token");
+  }
+
+  //Metodos de Login y obtencion de datos.
+  login(token: string, municipalidad:string) {
+    const usuario = { email: this.email, password: this.password, role: 'INTENDENTE_ROLE' };
+    this.http.post<Login>('http://localhost:3000/login', usuario).subscribe(data => {
+      this.cookies.get("token");
+      this.setToken(data.token)
+      let Municipal = data.usuario.municipalidad;
+      this.municipalidad = Municipal;
+      this.router.navigateByUrl('/tabs');
+    });
   }
 
 

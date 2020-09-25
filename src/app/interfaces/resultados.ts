@@ -63,3 +63,22 @@ export interface ImportePorDiaResultado {
   leyenda: string;
   importe: number;
 }
+
+
+export interface Login {
+  ok: boolean;
+  usuario: Usuario;
+  token: string;
+  id: string;
+}
+
+export interface Usuario {
+  role: string;
+  google: string;
+  _id: string;
+  nombre: string;
+  email: string;
+  password: string;
+  municipalidad: string;
+  __v: number;
+}

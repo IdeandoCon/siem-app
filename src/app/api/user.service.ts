@@ -14,16 +14,16 @@ export class UserService {
 
 
 
-  login(usuario: any, municipalidad:any): Observable<any> {
+  login(usuario: any): Observable<any> {
     return this.http.post("http://localhost:3000/login", usuario);
   }
 
 
-  setMunicipalidad(municipalidad: string) {
-    this.cookies.set("municipalidad", municipalidad);
+  setMunicipalidad(id: string) {
+    this.cookies.set("municipalidad", id);
   }
   getMunicipalidad() {
-    return this.cookies.get("municipalidad");
+    return this.cookies.get("id");
   }
 
   setToken(token: string) {
