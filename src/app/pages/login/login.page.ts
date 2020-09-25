@@ -84,6 +84,7 @@ export class LoginPage {
   }
 
   //Metodos de Login y obtencion de datos de Julio.
+  // Esto es preocupante
   login(token: string, municipalidad:string) {
     const usuario = { email: this.email, password: this.password, role: 'INTENDENTE_ROLE' };
     this.http.post<Login>('http://localhost:3000/login', usuario).subscribe(data => {
