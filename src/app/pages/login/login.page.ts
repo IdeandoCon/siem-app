@@ -83,7 +83,7 @@ export class LoginPage {
     return this.cookies.get("token");
   }
 
-  //Metodos de Login y obtencion de datos de Julio.
+  //Metodos de Login y obtencion de datos de Ale.
   login(token: string, municipalidad:string) {
     const usuario = { email: this.email, password: this.password, role: 'INTENDENTE_ROLE' };
     this.http.post<Login>('http://localhost:3000/login', usuario).subscribe(data => {
