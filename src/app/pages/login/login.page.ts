@@ -83,7 +83,7 @@ export class LoginPage {
     return this.cookies.get("token");
   }
 
-  //Metodos de Login y obtencion de datos de Julio.
+  //Metodos de Login y obtencion de datos de Ale.
   // Esto es preocupante
   login(token: string, municipalidad:string) {
     const usuario = { email: this.email, password: this.password, role: 'INTENDENTE_ROLE' };
