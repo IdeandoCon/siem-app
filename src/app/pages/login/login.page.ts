@@ -86,7 +86,7 @@ export class LoginPage {
   //Metodos de Login y obtencion de datos de Ale.
   login(token: string, municipalidad:string) {
     const usuario = { email: this.email, password: this.password, role: 'INTENDENTE_ROLE' };
-    this.http.post<Login>('http://localhost:3000/login', usuario).subscribe(data => {
+    this.http.post<Login>('http://45.77.129.241:3000/login', usuario).subscribe(data => {
       this.cookies.get("token");
       this.setToken(data.token)
       let Municipal = data.usuario.municipalidad;
