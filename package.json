@@ -28,7 +28,7 @@
         "@ionic-native/status-bar": "^5.0.0",
         "@ionic/angular": "^4.7.1",
         "@ionic/storage": "^2.2.0",
-        "axios": "^0.19.1",
+        "axios": "^0.21.1",
         "chalk": "^3.0.0",
         "chart.js": "^2.9.3",
         "cordova-plugin-calendar": "^5.1.5",
