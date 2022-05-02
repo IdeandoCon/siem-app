@@ -2,10 +2,9 @@ import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from 'src/app/api/user.service';
 import { URL_TOKEN } from 'src/app/config/config'
 import { URL_SERVIDOR } from 'src/app/config/config'
-import {DataResultado, Resultado, OtrasJurisdicciones, JurisdiccionMunicipal  } from 'src/app/interfaces/resultados'
+import { OtrasJurisdicciones  } from 'src/app/interfaces/resultados'
 import { Chart } from 'chart.js';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { LoadingController } from '@ionic/angular'
 import { AlertController } from '@ionic/angular';
 
 @Component({
@@ -48,7 +47,6 @@ export class Tab1Page implements OnDestroy {
   }
 
   async doRefresh(event) {
-    this.getLogo();
     this.getLogo();
     this.createOtrasJurisdicciones();
     this.var_ingreso_otrasJurisdicciones(event);
@@ -118,10 +116,8 @@ export class Tab1Page implements OnDestroy {
 
 
   getLogo() {
-    // Get saved list of students
     this.userService.getLogos().subscribe(response => {
       this.logos = response;
-      console.log(response);
     });
   }
 
